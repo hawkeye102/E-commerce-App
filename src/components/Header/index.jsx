@@ -1,5 +1,6 @@
 import searchicon from '../../assets/search.png';
 import carticon from '../../assets/cart.png';
+import CategoryNav from './Navigation'
 
 import SearchBar from './SearchBar';
 import { Tooltip } from "@mui/material";
@@ -7,6 +8,7 @@ import { FavoriteBorder, CompareArrows, ShoppingCart, PersonOutline,PersonAddOut
 
 export default function Header() {
   return (
+    <div>
     <header className="w-full border-b border-gray-200 text-sm">
       {/* Top Strip */}
       <div className="flex justify-between items-center px-6 py-2 bg-gray-100 text-gray-600">
@@ -37,7 +39,7 @@ export default function Header() {
       </div>
       
       {/* Main Navigation */}
-      <nav className="flex justify-between items-center px-6 py-4">
+      <nav className="flex justify-between items-center px-6 py-4 border-b border-gray-200 text-sm">
         {/* Left: Logo */}
         <div className="text-2xl font-bold text-gray-800">
           <a href="#">E-Shop</a>
@@ -92,6 +94,9 @@ export default function Header() {
           </div>
        
       </nav>
+      <CategoryNav/>
     </header>
+    
+    </div>
   );
 }
