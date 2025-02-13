@@ -1,18 +1,17 @@
-import searchicon from '../../assets/search.png'
-import carticon from '../../assets/cart.png'
+import searchicon from '../../assets/search.png';
+import carticon from '../../assets/cart.png';
 
 import SearchBar from './SearchBar';
-
+import { Tooltip } from "@mui/material";
+import { FavoriteBorder, CompareArrows, ShoppingCart, PersonOutline,PersonAddOutlined} from "@mui/icons-material";
 
 export default function Header() {
   return (
     <header className="w-full border-b border-gray-200 text-sm">
       {/* Top Strip */}
       <div className="flex justify-between items-center px-6 py-2 bg-gray-100 text-gray-600">
-        {/* /* Promo Message */ }
+        {/* Promo Message */}
         <p>Get up to 50% off new season styles, limited time only</p>
-
-       
 
         {/* Center Options */}
         <div className="flex items-center gap-4">
@@ -21,7 +20,7 @@ export default function Header() {
           <a href="#" className="hover:underline text-blue-600 font-medium">Order Tracking</a>
         </div>
 
-        {/* Language & Currency Dropdowns (Together) */}
+        {/* Language & Currency Dropdowns */}
         <div className="flex items-center gap-2">
           <select className="border-none bg-transparent cursor-pointer">
             <option>🇺🇸 English</option>
@@ -37,43 +36,61 @@ export default function Header() {
         </div>
       </div>
       
-       
-       {/* Main Navigation */}
-        <nav className="flex justify-between items-center px-6 py-4">
-
+      {/* Main Navigation */}
+      <nav className="flex justify-between items-center px-6 py-4">
         {/* Left: Logo */}
         <div className="text-2xl font-bold text-gray-800">
           <a href="#">E-Shop</a>
         </div>
 
-
-        {/* used materialui from react */}
+        {/* Search Bar (Centered) */}
         <div className="flex-1 flex justify-center ml-40">
           <SearchBar />
         </div>
-      
+
+ {/* using icon fom materialise ui  */}
        
-       {/* a signIn button  */}
-       <div className="mr-10">
-  <button className="px-4 py-2 bg-blue-500 text-white rounded">Sign In</button>
-</div>
+        <ul className="flex gap-6">
+  <li className="flex items-center gap-1">
+    <PersonOutline fontSize="medium" className="text-gray-700" />
+    <a href="#" className="text-gray-700 hover:text-black">Login</a>
+  </li>
+  <li className="flex items-center gap-1 mr-10">
+    <PersonAddOutlined fontSize="medium" className="text-gray-700" />
+    <a href="#" className="text-gray-700 hover:text-black">Register</a>
+  </li>
+</ul>
+
+
+
+        {/* Navigation Links & Icons */}
         
 
-        {/* Right: Navigation Links & Cart */}
-        <div className="flex items-center gap-6">
-          <ul className="flex gap-6">
-            <li><a href="#" className="text-gray-700 hover:text-black">Home</a></li>
-            <li><a href="#" className="text-gray-700 hover:text-black">Shop</a></li>
-            <li><a href="#" className="text-gray-700 hover:text-black">Contact</a></li>
-          </ul>
+          {/* Icons Section */}
+          <div className="flex items-center gap-4">
+            {/* Wishlist Icon */}
+            <Tooltip title="Wishlist">
+              <button className="p-2 hover:bg-gray-100 rounded-full transition">
+                <FavoriteBorder fontSize="medium" className="text-gray-700 hover:text-red-500" />
+              </button>
+            </Tooltip>
 
-          {/* Cart Icon */}
-          <button className="relative">
-          <img src={carticon} alt="Cart" className="w-6 h-6" />
-          
-            <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">3</span>
-          </button>
-        </div>
+            {/* Compare Icon */}
+            <Tooltip title="Compare">
+              <button className="p-2 hover:bg-gray-100 rounded-full transition">
+                <CompareArrows fontSize="medium" className="text-gray-700 hover:text-blue-500" />
+              </button>
+            </Tooltip>
+
+            {/* Cart Icon */}
+            <Tooltip title="Cart">
+              <button className="relative p-2 hover:bg-gray-100 rounded-full transition">
+                <ShoppingCart fontSize="medium" className="text-gray-700 hover:text-green-500" />
+                <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">3</span>
+              </button>
+            </Tooltip>
+          </div>
+       
       </nav>
     </header>
   );
