@@ -3,34 +3,10 @@
   background-color: #f3f3f3 !important;
 }
 
-/* Swiper Pagination (Dots) */
-.swiper-pagination {
-  position: absolute !important;
-  bottom: 15px !important; /* Ensure pagination is clearly visible */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: flex !important;
-  gap: 8px;
-}
 
-/* Pagination Dots */
-.swiper-pagination-bullet {
-  width: 10px;
-  height: 10px;
-  background-color: #999 !important; /* Default dot color */
-  opacity: 0.7;
-  border-radius: 50%;
-  transition: all 0.3s ease-in-out;
-}
 
-/* Active Dot */
-.swiper-pagination-bullet-active {
-  background-color: red !important; /* Active dot color */
-  width: 12px;
-  height: 12px;
-  opacity: 1;
-}
+
+
 
 /* Swiper Navigation Arrows */
 .swiper-button-next, .swiper-button-prev {
@@ -79,3 +55,4 @@
     height: 10px;
   }
 }
+ 
