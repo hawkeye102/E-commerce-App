@@ -33,7 +33,7 @@ const Homecatslider =()=>{
               640: { slidesPerView: 2 },
               768: { slidesPerView: 3 },
               1024: { slidesPerView: 4 },
-              1280: { slidesPerView: 6}, // Show 6 items on large screens
+              1280: { slidesPerView: 8}, // Show 8 items on large screens
             }}
           >
             {categories.map((category, index) => (
