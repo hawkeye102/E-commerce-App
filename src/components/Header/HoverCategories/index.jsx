@@ -40,7 +40,7 @@ const HoverCategories = () => {
 
           {/* Show dropdown only for Fashion, Electronics, and Bags */}
           {category.subcategories && openCategory === category.name && (
-            <div className="absolute left-0 top-full bg-white shadow-lg p-2 rounded-md w-40">
+            <div className="absolute left-0 top-full bg-white shadow-lg p-2 rounded-md w-40 z-50">
               {category.subcategories.map((sub) => (
                 <a 
                   key={sub} 

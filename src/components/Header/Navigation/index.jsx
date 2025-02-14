@@ -14,19 +14,7 @@ const CategoryNav = () => {
       {/* Left Section: Menu and Category Dropdown */}
       <ShopbyCategories/>
       
-      {/* Center Section: Navigation Links */}
-      {/* <nav className="flex gap-6">
-  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Home</a>
-  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Fashion</a>
-  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Electronics</a>
-  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Bags</a>
-  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Beauty</a>
-  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Jewellery</a>
-  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Footwear</a>
-  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Grocery</a>
-</nav> */}
-
- <HoverCategories/>
+      <HoverCategories/>
 
 
       {/* Right Section: Free Delivery */}
