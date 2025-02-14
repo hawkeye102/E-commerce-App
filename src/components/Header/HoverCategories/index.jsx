@@ -5,6 +5,7 @@ const categories = [
   { name: "Electronics", subcategories: ["Mobiles", "Laptops", "SmartWatch","Cameras","Accessories",] },
   { name: "Bags", subcategories: ["Handbags", "Backpacks", "Wallets"] },
   { name: "Beauty" },
+  { name: "Wellness"},
   { name: "Jewellery" },
   { name: "Footwear" },
   { name: "Grocery" }

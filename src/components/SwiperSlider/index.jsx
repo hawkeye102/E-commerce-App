@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination"; 
 import "./swiperStyles.css"; // Import the external CSS file
+import Homecatslider from "../HomeCatSlider";
 
 const Slider = () => {
   const slides = [
@@ -36,6 +37,7 @@ const Slider = () => {
           </SwiperSlide>
         ))}
       </Swiper>
+      <Homecatslider/>
     </div>
   );
 };

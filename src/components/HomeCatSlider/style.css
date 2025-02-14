@@ -1,0 +1,14 @@
+/* Remove hover effect from Swiper navigation buttons */
+.swiper-button-prev, .swiper-button-next {
+    transition: none !important; /* Remove hover transition */
+    opacity: 1 !important; /* Ensure visibility */
+  }
+  
+  .swiper-button-prev:hover, .swiper-button-next:hover {
+    background: none !important; /* Remove background effect */
+    opacity: 1 !important; /* Keep button visible */
+  }
+  .swiper-wrapper {
+    justify-content: flex-start !important;
+  }
+  
