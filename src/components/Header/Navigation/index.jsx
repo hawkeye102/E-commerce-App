@@ -1,5 +1,6 @@
 import { Menu, Rocket } from "lucide-react"; 
 import ShopbyCategories from '../ShopByCategories'
+import HoverCategories from "../HoverCategories";
 
 import { useState } from "react";
 import "./style.css";
@@ -14,16 +15,18 @@ const CategoryNav = () => {
       <ShopbyCategories/>
       
       {/* Center Section: Navigation Links */}
-      <nav className="flex gap-6">
+      {/* <nav className="flex gap-6">
   <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Home</a>
   <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Fashion</a>
   <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Electronics</a>
-  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Groceries</a>
+  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Bags</a>
   <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Beauty</a>
   <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Jewellery</a>
   <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Footwear</a>
-  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Wellness</a>
-</nav>
+  <a href="#" className="text-gray-700 hover:text-red-500 active:text-blue-600 focus:text-blue-700  font-semibold transition-all duration-200 transform active:scale-110">Grocery</a>
+</nav> */}
+
+ <HoverCategories/>
 
 
       {/* Right Section: Free Delivery */}
