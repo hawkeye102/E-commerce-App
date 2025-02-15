@@ -8,9 +8,9 @@ const Banner = () => {
   return (
     <div className="max-w-[1000px] mx-auto mt-8 shadow-lg rounded-lg overflow-hidden">
       <Swiper
-        modules={[Navigation, Autoplay]}
+        modules={[Navigation, ]}
         navigation
-        autoplay={{ delay: 3000 }}
+        autoplay={ false}
         loop
         slidesPerView={4} // Show 3 slides at once
         spaceBetween={20} // Add spacing between images

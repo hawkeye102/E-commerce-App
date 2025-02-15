@@ -1,0 +1,29 @@
+.swiper-button-prev,
+.swiper-button-next {
+  width: 30px !important; /* Adjust width */
+  height: 30px !important; /* Adjust height */
+  font-size: 14px !important; /* Reduce arrow size */
+  background-color: rgba(0, 0, 0, 0.5); /* Optional: Add background */
+  border-radius: 50%; /* Optional: Make it circular */
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 16px !important; /* Make arrows smaller */
+  color: white !important; /* Adjust color if needed */
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  width: 30px !important;
+  height: 30px !important;
+  font-size: 14px !important;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background-color: red !important;
+}
