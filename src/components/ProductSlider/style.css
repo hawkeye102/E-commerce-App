@@ -79,8 +79,8 @@
   background: rgba(255, 255, 255, 0.9);
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,12 +94,6 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Icons */
-.product-actions button svg {
-  width: 20px;
-  height: 20px;
-  color: #333;
-}
 
 /* Price Section */
 .price {
@@ -154,8 +148,8 @@
 
 /* Default Icon Style */
 .product-actions button svg {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   transition: color 0.3s ease-in-out;
   color: gray; /* Default color */
 }
