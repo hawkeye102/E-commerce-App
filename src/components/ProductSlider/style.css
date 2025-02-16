@@ -12,9 +12,8 @@
 
 /* Hover effect - Slight lift */
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: scale(1.05) translateY(-5px);
 }
-
 /* Product Image Wrapper */
 .product-image {
   position: relative;

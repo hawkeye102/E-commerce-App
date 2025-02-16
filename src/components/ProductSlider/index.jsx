@@ -128,4 +128,3 @@ const ProductSlider = ({ selectedCategory }) => {
 };
 
 export default ProductSlider;
-
