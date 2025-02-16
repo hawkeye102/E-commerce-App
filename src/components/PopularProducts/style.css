@@ -1,0 +1,49 @@
+.popular-products {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    background-color:white !important; /* Light Background */
+  }
+  
+  /* Left Section */
+  .left-section {
+    flex: 1;
+  }
+  
+  .left-section h2 {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .left-section p {
+    font-size: 14px;
+    color: gray;
+    font-weight: 700;
+  }
+  
+  /* Right Section */
+  .right-section {
+    width: 55%; /* Takes right half */
+  }
+  
+  /* Custom Styles for Tabs */
+  .custom-tabs .MuiTabs-indicator {
+    background-color: red;
+    height: 3px;
+    font-weight: 700;
+  }
+  
+  /* Custom Styles for Individual Tab */
+  .custom-tab {
+    font-size: 14px;
+    color: gray;
+    text-transform: none;
+    font-weight: 800;
+  }
+  
+  .custom-tab.Mui-selected {
+    color: red;
+    font-weight: 700;
+  }
+  

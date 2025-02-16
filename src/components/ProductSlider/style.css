@@ -1,0 +1,197 @@
+/* Product Card */
+.product-card {
+  background: #c0bebe;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hover effect - Slight lift */
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Product Image Wrapper */
+.product-image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  width: 100%;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 12px;
+}
+
+/* Image inside */
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+/* Image zoom effect on hover */
+.product-card:hover .product-image img {
+  transform: scale(1.1);
+}
+
+/* Discount Badge */
+.discount {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: red;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 3px 5px;
+  border-radius: 5px;
+}
+
+/* Action Icons - Hidden initially */
+.product-actions {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show icons on hover */
+.product-card:hover .product-actions {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+}
+
+/* Individual Icon Button */
+.product-actions button {
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.product-actions button:hover {
+  background: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Icons */
+.product-actions button svg {
+  width: 20px;
+  height: 20px;
+  color: #333;
+}
+
+/* Price Section */
+.price {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Original Price (Strikethrough) */
+.old-price {
+  text-decoration: line-through;
+  color: gray;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+/* Discounted Price */
+.discounted-price {
+  color: #ff5722;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Add-to-Cart Button */
+.add-to-cart {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  border: 2px solid black;
+  background: white;
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  border-radius: 6px;
+}
+
+/* Hover Effect */
+.add-to-cart:hover {
+  background: black;
+  color: white;
+}
+
+/* Shopping Cart Icon */
+.cart-icon {
+  margin-right: 8px;
+}
+
+/* Default Icon Style */
+.product-actions button svg {
+  width: 20px;
+  height: 20px;
+  transition: color 0.3s ease-in-out;
+  color: gray; /* Default color */
+}
+
+/* Scale Icon: Turns Black on Hover */
+.product-actions button:hover .scale-icon {
+  color: black;
+}
+
+/* Heart Icon: Turns Red on Hover */
+.product-actions button:hover .heart-icon {
+  color: red;
+}
+
+/* Expand Icon: Turns Black on Hover */
+.product-actions button:hover .expand-icon {
+  color: black;
+}
+
+
+/* Individual Icon Button - Background Turns Red on Hover */
+.product-actions button:hover {
+  background: rgb(235, 26, 54); /* Turns red on hover */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensuring Icons Change Color as Before */
+.product-actions button:hover .scale-icon {
+  color: white;
+}
+
+.product-actions button:hover .heart-icon {
+  color: white;
+}
+
+.product-actions button:hover .expand-icon {
+  color: white;
+}
