@@ -5,7 +5,9 @@ import PopularProducts from "./components/PopularProducts";
 import ProductSlider from "./components/Productslider";
 import FreeShip from "./components/freeShipping";
 import Banner from "./components/Banner";
-import LatestProduct from "./components/LatestProducts";
+
+import LatestProducts from "./components/LatestProducts";
+import FeaturedProducts from "./components/FeaturedProducts";
 
 export default function App() {
   // State to track the selected category
@@ -23,7 +25,8 @@ export default function App() {
       <ProductSlider selectedCategory={selectedCategory} />
 
       <FreeShip />
-      <LatestProduct/>
+      <LatestProducts/>
+      <FeaturedProducts/>
       <Banner />
     </div>
   );
