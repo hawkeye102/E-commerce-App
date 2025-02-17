@@ -8,6 +8,7 @@ import Banner from "./components/Banner";
 
 import LatestProducts from "./components/LatestProducts";
 import FeaturedProducts from "./components/FeaturedProducts";
+import BlogSection from "./components/BlogItems";
 
 export default function App() {
   // State to track the selected category
@@ -28,6 +29,7 @@ export default function App() {
       <LatestProducts/>
       <FeaturedProducts/>
       <Banner />
+      <BlogSection/>
     </div>
   );
 }
