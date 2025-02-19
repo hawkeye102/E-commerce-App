@@ -9,6 +9,7 @@ import Banner from "./components/Banner";
 import LatestProducts from "./components/LatestProducts";
 import FeaturedProducts from "./components/FeaturedProducts";
 import BlogSection from "./components/BlogItems";
+import Footer from "./components/FooterSection";
 
 export default function App() {
   // State to track the selected category
@@ -30,6 +31,7 @@ export default function App() {
       <FeaturedProducts/>
       <Banner />
       <BlogSection/>
+      <Footer/>
     </div>
   );
 }
