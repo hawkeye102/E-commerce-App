@@ -1,0 +1,21 @@
+.bannerbox-container {
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* gap-3 equivalent */
+  }
+  
+  .bannerbox-item {
+    height: calc((100% - 12px) / 2); /* Adjust for gap precisely */
+    overflow: hidden;
+    border-radius: 8px;
+    display: flex;
+   
+  }
+  
+  .bannerbox-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  

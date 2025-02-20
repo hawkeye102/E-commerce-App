@@ -60,4 +60,13 @@
     opacity: 1;
     transform: translateY(0);
   }
+  .swiper,
+ .swiper-slide {     /* some times swiper takes own default padding to make sure it take complete height */
+  height: 100% !important;
+}
+
+.swiper-slide > div {
+  height: 100%;
+}
+
   

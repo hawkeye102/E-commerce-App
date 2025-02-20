@@ -8,19 +8,21 @@ import 'swiper/css/pagination';
 import './style.css'
 import Button from '@mui/material/Button';
 
-import { EffectFade, Navigation, Pagination,Autoplay } from 'swiper/modules';
+import { EffectFade, Navigation, Pagination,Autoplay, } from 'swiper/modules';
+import BannerboxV2 from "../Bannerbox";
 
 const Baanner2 = () => {
     return (
-      <div className="py-6  ml-10">
-        <div className="w-[63%] h-[415px] relative overflow-hidden rounded-lg"> 
+      <div className="py-6  ml-10 flex items-center">
+        <div className="w-[63%] h-[420px] relative overflow-hidden rounded-lg"> 
           <Swiper
+          loop={true}
             spaceBetween={30}
             effect={'fade'}
             navigation={true}
             autoplay={true}
             pagination={{ clickable: true }}
-            modules={[EffectFade, Navigation, Pagination,Autoplay ]}
+            modules={[EffectFade, Navigation, Pagination,Autoplay]}
             className="mySwiper"
           >
             <SwiperSlide>
@@ -81,6 +83,10 @@ const Baanner2 = () => {
             
             
           </Swiper>
+        </div>
+
+        <div className=" w-[27%] pl-7 h-[420px] ">
+          <BannerboxV2 className= " w-full"/>
         </div>
       </div>
     );
