@@ -11,6 +11,7 @@ import FeaturedProducts from "./components/FeaturedProducts";
 import BlogSection from "./components/BlogItems";
 import Footer from "./components/FooterSection";
 import MediaFooter from "./components/Media";
+import Baanner2 from "./components/Homeslide2";
 
 export default function App() {
   // State to track the selected category
@@ -26,6 +27,8 @@ export default function App() {
 
       {/* Correctly render ProductSlider based on selectedCategory */}
       <ProductSlider selectedCategory={selectedCategory} />
+
+      <Baanner2/>
 
       <FreeShip />
       <LatestProducts/>
