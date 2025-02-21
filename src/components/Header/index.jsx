@@ -1,10 +1,17 @@
 import searchicon from '../../assets/search.png';
 import carticon from '../../assets/cart.png';
 import CategoryNav from './Navigation'
+import CategoryLinks from '../pages/ProductListings/CatergoryLinks';
 
 import SearchBar from './SearchBar';
 import { Tooltip } from "@mui/material";
 import { FavoriteBorder, CompareArrows, ShoppingCart, PersonOutline,PersonAddOutlined} from "@mui/icons-material";
+
+import { Link } from "react-router-dom";
+
+<Link to="/products" className="hover:text-red-400">
+  Shop All Products
+</Link>
 
 export default function Header() {
   return (
@@ -95,7 +102,9 @@ export default function Header() {
        
       </nav>
       <CategoryNav/>
+      
     </header>
+    
     
     </div>
   );
