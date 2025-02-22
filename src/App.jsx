@@ -16,6 +16,7 @@ import MediaFooter from "./components/Media";
 import Baanner2 from "./components/Homeslide2";
 import ProductListing from "./components/pages/ProductListings";
 import HoverCategories from "./components/Header/HoverCategories";
+import ProductDetails from "./components/pages/ProductDetails";
 
 export default function App() {
   // State to track the selected category
@@ -47,7 +48,8 @@ export default function App() {
           {/* Product Listing Route */}
           <Route path="/products" element={<ProductListing />} />
           <Route path="/listingproducts/:category" element={<ProductListing />} />
-        <Route path="/listingproducts/:category/:subcategory" element={<ProductListing />} />
+          <Route path="/listingproducts/:category/:subcategory" element={<ProductListing />} />
+          <Route path="/ProductDetails/:id" element={<ProductDetails/>} />
 
         </Routes>
         <Footer />
