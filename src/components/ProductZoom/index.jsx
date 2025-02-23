@@ -29,7 +29,7 @@ const ProductZoom = () => {
 
   return (
     <div className='flex gap-3 pl-4'>
-      <div className='slider w-[15%] h-[300px] relative'>
+      <div className='slider w-[25%] h-[310px] relative'>
         <Swiper
         ref={zoomSliderSml}
         direction={'vertical'}
@@ -87,7 +87,7 @@ const ProductZoom = () => {
           </Swiper>
 
       </div>
-    <div className=' Zoom-container w-[60%] h-[600px]'>
+    <div className=' Zoom-container w-[63%] h-[600px]'>
     <Swiper
        ref={zoomSliderBig}
         slidesPerView={1}
