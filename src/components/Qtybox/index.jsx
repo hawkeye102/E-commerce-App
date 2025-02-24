@@ -4,6 +4,7 @@ import { FaAngleUp } from "react-icons/fa6";
 import { FaAngleDown } from "react-icons/fa6";
 import Button from  '@mui/material/Button'
 
+
 const QtyBox=()=>{
     const [qtyVal,setqtyVal] = useState(1)
 
@@ -31,6 +32,8 @@ const QtyBox=()=>{
        < Button  className="!mt-0.5 !min-w-[30px] w-[30px] !h-[10px] !text-black rounded-none !text-[12px]" onClick={plusQty}><FaAngleUp/></ Button>
        < Button  className="!min-w-[30px] w-[30px] !h-[10px]  !text-black rounded-none !text-[12px]" onClick={minusQty}><FaAngleDown/></ Button>
     </div>
+
+    
            
         </div>
     )

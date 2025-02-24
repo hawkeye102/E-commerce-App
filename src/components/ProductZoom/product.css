@@ -1,74 +1,78 @@
 .slider-container {
-    width: 20%;
-    height: 500px; /* Adjust height as needed */
-    position: relative; /* Required for absolute positioning */
-  }
-  
-  .mySwiper {
-    height: 100%;
-    position: relative;
-  }
-  
-  .mySwiper .swiper-slide {
-    height: 100px !important;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .mySwiper .swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  /* 🔼 Previous Button - Top of the slider */
-  .mySwiper .swiper-button-prev {
-    position: absolute !important;
-    top: 20px !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    z-index: 10;
-    width: 100% !important;
-    height: 25px !important;
-    border-radius: 0px !important;
-    color: black;
-  }
-  
-  /* 🔽 Next Button - Bottom of the slider */
-  .mySwiper .swiper-button-next {
-    position: absolute !important;
-    bottom: 0px !important;
-    right: 50% !important;
-    top: auto !important;
-    transform: translateX(50%) !important;
-    z-index: 10;
-    width: 100% !important;
-    height: 25px !important;
-    border-radius: 0px !important;
-    color: black;
-  }
+  width: 20%;
+  height: 500px; /* Adjust height as needed */
+  position: relative; /* Required for absolute positioning */
+}
 
-  .mySwiper .swiper-button-next::after{
-    transform: rotate(90deg) !important;
-  }
-    .mySwiper .swiper-button-prev::after{
-        transform: rotate(90deg) !important;
+.mySwiper1 {
+  height: 100%;
+  position: relative;
+}
 
-  }
-  .mySwiper .swiper-button-next:hover,
-.mySwiper .swiper-button-prev:hover {
-  background-color: rgba(223, 50, 50, 0.979) !important;}
+.mySwiper1 .swiper-slide {
+  height: 100px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+.mySwiper1 .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-  /* For all slides (reduced opacity) */
-.mySwiper .swiper-slide .items {
-    opacity: 0.3;
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-  }
-  
-  /* For the active slide (full opacity) */
-  .mySwiper .swiper-slide-active .items {
-    opacity: 1;
-  }
-  
+/* 🔼 Previous Button - Top of the slider */
+.mySwiper1 .swiper-button-prev {
+  position: absolute !important;
+  top: 20px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 10;
+  width: 65% !important;
+  height: 25px !important;
+  border-radius: 0px !important;
+  color: black;
+}
+
+/* 🔽 Next Button - Bottom of the slider */
+.mySwiper1 .swiper-button-next {
+  position: absolute !important;
+  bottom: 0px !important;
+  right: 50% !important;
+  top: auto !important;
+  transform: translateX(50%) !important;
+  z-index: 10;
+  width: 65% !important;
+  height: 25px !important;
+  border-radius: 0px !important;
+  color: black;
+}
+
+.iiz__img {
+  border-radius: 10px !important;
+}
+
+.mySwiper1 .swiper-button-next::after {
+  transform: rotate(90deg) !important;
+}
+
+.mySwiper1 .swiper-button-prev::after {
+  transform: rotate(90deg) !important;
+}
+
+.mySwiper1 .swiper-button-next:hover,
+.mySwiper1 .swiper-button-prev:hover {
+  background-color: rgba(223, 50, 50, 0.979) !important;
+}
+
+/* For all slides (reduced opacity) */
+.mySwiper1 .swiper-slide .items {
+  opacity: 0.3;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* For the active slide (full opacity) */
+.mySwiper1 .swiper-slide-active .items {
+  opacity: 1;
+}

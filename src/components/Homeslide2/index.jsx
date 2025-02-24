@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import './style.css'
+import './homeslide.css'
 import Button from '@mui/material/Button';
 
 import { EffectFade, Navigation, Pagination,Autoplay, } from 'swiper/modules';
@@ -31,7 +31,7 @@ const Baanner2 = () => {
                   src="banner2/banner2.jpg"
                   className="w-full h-full object-cover rounded-lg"
                 />
-                <div className="info absolute top-0  w-[50%] z-50 p-8 h-[100%]
+                <div className="info absolute top-0  w-[50%] z-50 p-8 !h-[100%]
                   flex items-center flex-col justify-center">
                     <h4 className="text-[16px] font-[500] mb-2 w-full text-left">big saving days sale </h4>
                     <h2 className="text-[28px] font-[700] w-full ">Men Round Toe <br />

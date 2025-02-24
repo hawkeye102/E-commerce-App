@@ -1,0 +1,217 @@
+.latest-products {
+    width: 100%;
+    margin: auto;
+}
+
+.latest-products h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.product-card {
+    position: relative;
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Discount Badge */
+.discount-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: red;
+    color: white;
+    padding: 2px 5px;
+    font-size: 10px;
+    font-weight: bold;
+    border-radius: 5px;
+    z-index: 2;
+}
+
+/* Product Image Styling */
+.product-image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.hover-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.product-image-container:hover .default-img {
+    opacity: 0;
+}
+
+.product-image-container:hover .hover-img {
+    opacity: 1;
+}
+
+/* Product Info */
+.product-info {
+    padding: 10px;
+    text-align: center;
+}
+
+.product-name {
+    font-size: 1rem;
+    font-weight: 600; /* Changed from bold to semibold */
+    margin: 5px 0;
+}
+
+.product-prices {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.new-price {
+    font-weight: semibold;
+    color: red;
+}
+
+/* Add to Cart Button */
+.add-to-cart {
+    background: rgb(255, 255, 255);
+    color: black; /* Default text color */
+    border: 2px solid black; /* Added a border */
+    padding: 5px 8px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    transition: background 0.3s, color 0.3s;
+    cursor: pointer;
+    font-weight: 600; /* Make button text semibold */
+}
+
+/* On hover, change background to red */
+.add-to-cart:hover {
+    background: red;
+    color: white;
+    border: 2px solid red;
+}
+
+/* Cart Icon */
+.cart-icon {
+    margin-right: 5px;
+}
+
+/* Stars */
+.text-yellow-500 {
+    color: #facc15; /* Tailwind yellow-500 */
+}
+
+.text-gray-300 {
+    color: #d1d5db; /* Tailwind gray-300 */
+}
+ 
+
+  
+/* Action Icons - Hidden initially */
+.product-action {
+    position: absolute;
+    top: 90px;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(-50%) scale(0.8);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Show icons on hover */
+  .product-card:hover .product-action {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  
+  /* Individual Icon Button */
+  .product-action button {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .product-action button:hover {
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  
+
+  /* Default Icon Style */
+.product-action button svg {
+    width: 15px;
+    height: 15px;
+    transition: color 0.3s ease-in-out;
+    color: gray; /* Default color */
+  }
+  
+  /* Scale Icon: Turns Black on Hover */
+  .product-action button:hover .scale-icon {
+    color: black;
+  }
+  
+  /* Heart Icon: Turns Red on Hover */
+  .product-action button:hover .heart-icon {
+    color: red;
+  }
+  
+  /* Expand Icon: Turns Black on Hover */
+  .product-action button:hover .expand-icon {
+    color: black;
+  }
+  
+  
+  /* Individual Icon Button - Background Turns Red on Hover */
+  .product-action button:hover {
+    background: rgb(235, 26, 54); /* Turns red on hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Ensuring Icons Change Color as Before */
+  .product-action button:hover .scale-icon {
+    color: white;
+  }
+  
+  .product-action button:hover .heart-icon {
+    color: white;
+  }
+  
+  .product-action button:hover .expand-icon {
+    color: white;
+  }
+  

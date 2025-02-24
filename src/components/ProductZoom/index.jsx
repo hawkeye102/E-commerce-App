@@ -28,8 +28,8 @@ const ProductZoom = () => {
   
 
   return (
-    <div className='flex gap-3 pl-4'>
-      <div className='slider w-[25%] h-[310px] relative'>
+    <div className='flex gap-3 pl-4 !rounded-md'>
+      <div className='slider w-[25%] h-[310px] relative '>
         <Swiper
         ref={zoomSliderSml}
         direction={'vertical'}
@@ -37,7 +37,7 @@ const ProductZoom = () => {
         spaceBetween={10}
         navigation={true}
         modules={[Navigation]}
-        className='mySwiper h-full' >
+        className='mySwiper1 h-full' >
 
           
           <SwiperSlide>
@@ -47,7 +47,7 @@ const ProductZoom = () => {
          onClick={() => goto(0)}
            >
 
-              <img src={`/beauty/beauty2.jpg`}
+              <img src={`/ProductD/product2.jpg`}
               className="w-full h-[100px] object-cover transition-all group-hover:scale-120" />
               </div>
           </SwiperSlide>
@@ -57,7 +57,7 @@ const ProductZoom = () => {
           slideIndex === 1 ? '!opacity-100' : '!opacity-30' }`}
           onClick={() => goto(1)}
            >
-              <img src={`/beauty/beauty2.jpg`}
+              <img src={`/ProductD/products3.jpg`}
               className="w-full h-[100px] object-cover transition-all group-hover:scale-120" />
               </div>
           </SwiperSlide>
@@ -67,7 +67,7 @@ const ProductZoom = () => {
           slideIndex === 2 ? '!opacity-100' : '!opacity-30' }`}
           onClick={() => goto(2)}
            >
-              <img src={`/beauty/beauty2.jpg`}
+              <img src={`/ProductD/products4.jpg`}
             className="w-full h-[100px] object-cover transition-all group-hover:scale-120" />
             </div>
           </SwiperSlide>
@@ -80,14 +80,14 @@ const ProductZoom = () => {
 
             goto(3)}}
            >
-              <img src={`/beauty/beauty2.jpg`}
+              <img src={`/ProductD/products5.jpg`}
                className="w-full h-[100px] object-cover transition-all group-hover:scale-120" />
              </div>
           </SwiperSlide>
           </Swiper>
 
       </div>
-    <div className=' Zoom-container w-[63%] h-[600px]'>
+    <div className=' Zoom-container w-[63%] h-[600px] !rounded-md'>
     <Swiper
        ref={zoomSliderBig}
         slidesPerView={1}
@@ -96,8 +96,8 @@ const ProductZoom = () => {
         >
   
   <SwiperSlide>
-    <InnerImageZoom src="/beauty/beauty2.jpg" 
-    zoomSrc="/beauty/beauty2.jpg" 
+    <InnerImageZoom src="/ProductD/product2.jpg" 
+    zoomSrc="/ProductD/product2.jpg" 
     alt="product image"
     zoomType="hover" // Options: 'click' or 'hover'
     zoomPreload={true} // Preloads the zoom image
@@ -105,8 +105,8 @@ const ProductZoom = () => {
       </SwiperSlide>
 
       <SwiperSlide>
-    <InnerImageZoom src="/beauty/beauty2.jpg" 
-    zoomSrc="/beauty/beauty2.jpg" 
+    <InnerImageZoom src="/ProductD/products3.jpg" 
+    zoomSrc="/ProductD/products3.jpg" 
     alt="product image"
     zoomType="hover" // Options: 'click' or 'hover'
     zoomPreload={true} // Preloads the zoom image
@@ -114,8 +114,8 @@ const ProductZoom = () => {
       </SwiperSlide>
 
       <SwiperSlide>
-    <InnerImageZoom src="/beauty/beauty2.jpg" 
-    zoomSrc="/beauty/beauty2.jpg" 
+    <InnerImageZoom src="/ProductD/products4.jpg" 
+    zoomSrc="/ProductD/products4.jpg" 
     alt="product image"
     zoomType="hover" // Options: 'click' or 'hover'
     zoomPreload={true} // Preloads the zoom image
@@ -123,8 +123,8 @@ const ProductZoom = () => {
       </SwiperSlide>
 
       <SwiperSlide>
-    <InnerImageZoom src="/beauty/beauty2.jpg" 
-    zoomSrc="/beauty/beauty2.jpg" 
+    <InnerImageZoom src="/ProductD/products5.jpg" 
+    zoomSrc="/ProductD/products5.jpg" 
     alt="product image"
     zoomType="hover" // Options: 'click' or 'hover'
     zoomPreload={true} // Preloads the zoom image
