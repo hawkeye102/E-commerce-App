@@ -27,8 +27,9 @@ import { IoMdClose } from "react-icons/io";
 import { createContext } from "react";
 import ProductZoom from "./components/ProductZoom";
 import ProductDetailComponent from "./components/dialogProductDetails";
-
+import Login from "./components/pages/Login";
 export const MyContext=createContext()
+import Register from "./components/pages/Register";
 
 export default function App() {
 
@@ -82,6 +83,12 @@ export default function App() {
           <Route path="/listingproducts/:category" element={<ProductListing />} />
           <Route path="/listingproducts/:category/:subcategory" element={<ProductListing />} />
           <Route path="/ProductDetails/:id" element={<ProductDetails/>} />
+
+           {/* {Login route} */}
+           <Route path="/login" element={<Login/>} />
+            
+             {/* {Register route} */}
+           <Route path="/Register" element={<Register/>} />
 
         </Routes>
         <Footer />
