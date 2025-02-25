@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
@@ -8,6 +8,7 @@ import "./style.css"; // Import CSS file
 import { Star, StarHalf, Star as StarOutline } from "lucide-react";
 import { Scale, Heart, Expand } from "lucide-react";
 import './relp.css'
+import { MyContext } from "../../../App";
 const products = [
   {
     id: 1,
@@ -102,6 +103,7 @@ const products = [
 ];
 
 const RelatedProducts = () => {
+  const context=useContext(MyContext)
     // Function to render stars based on rating
     const renderStars = (rating) => {
       const stars = [];
@@ -157,7 +159,7 @@ const RelatedProducts = () => {
     <Heart size={12} className="heart-icon" />
   </button>
   <button>
-    <Expand size={12} className="expand-icon" />
+    <Expand size={12} className="expand-icon" onClick={()=>context.setopenProductDetailsModal(true)}/>
   </button>
 </div>
                 <div className="product-info">

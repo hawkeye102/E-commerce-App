@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { Heart, ShoppingCart, Repeat, List, Grid } from "lucide-react";
+import React, { useState, useEffect, useContext } from "react";
+import { Heart, ShoppingCart, Expand, List, Grid } from "lucide-react";
 import { useParams } from "react-router-dom";
+import { MyContext } from "../../../App";
 
 const ProductListing = () => {
+  const context =useContext(MyContext)
   const { category, subcategory } = useParams(); 
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [priceRange, setPriceRange] = useState([0, 60000]);
@@ -156,13 +158,17 @@ const ProductListing = () => {
                     alt={product.name}
                     className="w-full h-48 object-contain transform group-hover:scale-105 transition-transform duration-300"
                   />
+                  
+                  {/* icons-section */}
                   <div className="absolute top-4 right-4 flex flex-col gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <button title="Add to Wishlist" className="bg-white p-2 rounded-full shadow hover:bg-red-500 hover:text-white transition-colors">
                       <Heart className="w-4 h-4" />
                     </button>
-                    <button title="Compare" className="bg-white p-2 rounded-full shadow hover:bg-red-500 hover:text-white transition-colors">
-                      <Repeat className="w-4 h-4" />
-                    </button>
+                    <button title="View Details"
+                   className="bg-white p-2 rounded-full shadow hover:bg-blue-500 hover:text-white transition-colors">
+                  <Expand className="w-4 h-4" onClick={()=>context.setopenProductDetailsModal(true)}/>
+                 </button>
+
                     <button title="Add to Cart" className="bg-white p-2 rounded-full shadow hover:bg-red-500 hover:text-white transition-colors">
                       <ShoppingCart className="w-4 h-4" />
                     </button>

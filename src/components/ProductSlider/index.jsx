@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
@@ -7,6 +7,7 @@ import "swiper/css/pagination";
 import './style.css'
 import { ShoppingCart } from "lucide-react";
 import { Scale, Heart, Expand } from "lucide-react";
+import { MyContext } from "../../App";
 
 
 
@@ -69,6 +70,9 @@ const productData = {
 };
 
 const ProductSlider = ({ selectedCategory }) => {
+  
+  const context=useContext(MyContext)
+
   return (
     <div className="product-slider">
       <h3 className="category-title">{selectedCategory}</h3>
@@ -106,7 +110,8 @@ const ProductSlider = ({ selectedCategory }) => {
     <Heart size={20} className="heart-icon" />
   </button>
   <button>
-    <Expand size={20} className="expand-icon" />
+    <Expand size={20} className="expand-icon" onClick={() => context.setopenProductDetailsModal(true)}
+    />
   </button>
 </div>
             </div>
