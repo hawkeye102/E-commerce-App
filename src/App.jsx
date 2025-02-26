@@ -30,6 +30,7 @@ import ProductDetailComponent from "./components/dialogProductDetails";
 import Login from "./components/pages/Login";
 export const MyContext=createContext()
 import Register from "./components/pages/Register";
+import Cart from "./components/Cart";
 
 
 export default function App() {
@@ -100,6 +101,8 @@ const toggleCartPanel = (newOpen) => () => {
             
              {/* {Register route} */}
            <Route path="/Register" element={<Register/>} />
+
+           <Route path="/cart" element={<Cart/>} />
 
         </Routes>
         <Footer />
