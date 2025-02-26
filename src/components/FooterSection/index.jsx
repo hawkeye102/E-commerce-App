@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { PiKeyReturnLight } from "react-icons/pi";
 import { BsWallet2 } from "react-icons/bs";
 import { LiaGiftSolid } from "react-icons/lia";
 import { BiSupport } from "react-icons/bi";
 import { IoChatboxOutline } from "react-icons/io5";
+import Drawer from '@mui/material/Drawer';
+import CartPanel from "../CartPanel";
+import { MyContext } from '../../App';
+import { IoMdClose } from "react-icons/io";
+
 
 const Footer=()=>{
+  
+  const context= useContext(MyContext)
     return(
+      <>
         <footer className='py-6 bg-gray-200'>
         
             <div className='container'>
@@ -179,9 +187,24 @@ const Footer=()=>{
 
        
   </footer>
+  <Drawer 
+    open={context.openCartPanel} 
+    onClose={context.toggleCartPanel(false)} 
+    anchor={"right"}
+    sx={{ '& .MuiDrawer-paper': { width: '400px' } }}
+  >
+    <div className="flex items-center justify-between py-3 px-3 gap-3 border-b border-black">
+      <h1>Shopping Cart 1</h1>
+      <IoMdClose 
+        className="text-[20px] cursor-pointer" 
+        onClick={context.toggleCartPanel(false)} 
+      />
+    </div>
   
+   <CartPanel/>
+  </Drawer>
 
-      
+  </>   
     )
 }
 export default Footer

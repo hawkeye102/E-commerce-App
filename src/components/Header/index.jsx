@@ -8,12 +8,15 @@ import { Tooltip } from "@mui/material";
 import { FavoriteBorder, CompareArrows, ShoppingCart, PersonOutline,PersonAddOutlined} from "@mui/icons-material";
 
 import { Link } from "react-router-dom";
+import { useContext } from 'react';
+import { MyContext } from '../../App';
 
 <Link to="/products" className="hover:text-red-400">
   Shop All Products
 </Link>
 
 export default function Header() {
+  const context=useContext(MyContext)
   return (
     <div>
     <header className="w-full border-b border-gray-200 text-sm">
@@ -93,8 +96,9 @@ export default function Header() {
 
             {/* Cart Icon */}
             <Tooltip title="Cart">
-              <button className="relative p-2 hover:bg-gray-100 rounded-full transition">
-                <ShoppingCart fontSize="medium" className="text-gray-700 hover:text-green-500" />
+              <button className="relative p-2 hover:bg-gray-100 rounded-full transition" 
+              onClick={()=>context. setopenCartPanel(true)}>
+                <ShoppingCart fontSize="medium" className="text-gray-700 hover:text-green-500"/>
                 <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">3</span>
               </button>
             </Tooltip>

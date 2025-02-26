@@ -20,7 +20,7 @@ import ProductDetails from "./components/pages/ProductDetails";
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
+
 import DialogContent from '@mui/material/DialogContent';
 import { IoMdClose } from "react-icons/io";
 
@@ -31,11 +31,19 @@ import Login from "./components/pages/Login";
 export const MyContext=createContext()
 import Register from "./components/pages/Register";
 
+
 export default function App() {
 
   const [openProductDetailsModal, setopenProductDetailsModal] = useState(false);
   const [maxWidth, setMaxWidth] = React.useState('lg');
   const [fullWidth, setFullWidth] = React.useState(true);
+
+  const [openCartPanel, setopenCartPanel] = useState(false);
+
+const toggleCartPanel = (newOpen) => () => {
+  setopenCartPanel(newOpen);
+};
+
 
 
   const handleClickOpenProductDetailsModal= () => {
@@ -48,7 +56,10 @@ export default function App() {
 
   const values={
     setopenProductDetailsModal,
-    handleClickOpenProductDetailsModal
+    handleClickOpenProductDetailsModal,
+    setopenCartPanel,
+    toggleCartPanel,
+    openCartPanel
   }
   // State to track the selected category
   const [selectedCategory, setSelectedCategory] = useState("FASHION");
@@ -122,6 +133,9 @@ className="ProductDetailsModal"
 </DialogContent>
 
 </Dialog>
+
+
+
 </>
   );
 }
