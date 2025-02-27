@@ -65,11 +65,11 @@ export default function Header() {
         <ul className="flex gap-6">
   <li className="flex items-center gap-1">
     <PersonOutline fontSize="medium" className="text-gray-700" />
-    <a href="#" className="text-gray-700 hover:text-black">Login</a>
+    <a href="/login" className="text-gray-700 hover:text-black">Login</a>
   </li>
   <li className="flex items-center gap-1 mr-10">
     <PersonAddOutlined fontSize="medium" className="text-gray-700" />
-    <a href="#" className="text-gray-700 hover:text-black">Register</a>
+    <a href="/register" className="text-gray-700 hover:text-black">Register</a>
   </li>
 </ul>
 

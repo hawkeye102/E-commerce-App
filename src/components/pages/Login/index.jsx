@@ -1,13 +1,33 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import TextField from '@mui/material/TextField';
 import Button from  '@mui/material/Button'
 import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
+import { Email } from "@mui/icons-material";
+import { MyContext } from "../../../App";
+
 
 const Login=()=>{
     const [isShowPassword,setisShowPassword] =useState(false)
+
+    const [formfields,setformfields] =useState({
+        email:'',
+        password:''
+    })
+    
+
+    const context=useContext(MyContext)
+    const history=useNavigate()
+
+    const forgetPassword=(params)=> {
+        
+       
+        history('/verify')
+    context.openAlertBox("success", "otp send")
+    }
+
 return(
     <section className="section py-10 min-h-screen bg-cover bg-center"
     style={{ backgroundImage: `url('loginpic/login4.jpg')` }}>
@@ -18,10 +38,12 @@ return(
                 <form className="w-full mt-5">
                   <div className="form-group w-full mb-5 relative">
                   <TextField 
-                  type="password"
+                  
+                  type="email"
                   id="Email" 
                   label="Email Id"
                    variant="outlined"
+                   name="email"
                   className="w-full" />
                   </div>
 
@@ -31,16 +53,18 @@ return(
                   id="Password" 
                   label="Password" 
                   variant="outlined"
+                  name="password"
                   className="w-full" />
                   
-                  <Button className="!absolute top-[8px] right-[5px] z-50 !w-[45px] !h-[45px] !min-w-[35px]
+                  <Button type="submit" className="!absolute top-[8px] right-[5px] z-50 !w-[45px] !h-[45px] !min-w-[35px]
                    !rounded-full !text-black " onClick={()=>setisShowPassword(!isShowPassword)}>
                     {isShowPassword===true ?
                     <IoMdEye className="text-[20px] opacity-75"/>
                     :<IoMdEyeOff className="text-[20px] opacity-75"/>}                    
                    </Button>
                   </div>
-                  <a className="link font-[500] hover:text-blue-600 transition-colors duration-200  cursor-pointer">Forget Password?</a>
+                  <a className="link font-[500] hover:text-blue-600 transition-colors duration-200  
+                  cursor-pointer" onClick={forgetPassword}>Forget Password?</a>
                 
                   <div className="flex items-center gap-2">
     <button className=" font-[400] !text-center !mt-5 bg-red-400 text-white  rounded-lg shadow-lg !w-full !h-[40px]

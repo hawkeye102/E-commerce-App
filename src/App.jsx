@@ -31,6 +31,10 @@ import Login from "./components/pages/Login";
 export const MyContext=createContext()
 import Register from "./components/pages/Register";
 import Cart from "./components/Cart";
+import Verify from "./components/pages/Verify";
+
+import toast, { Toaster } from 'react-hot-toast';
+import ForgetPassword1 from "./components/pages/Forgetpassword";
 
 
 export default function App() {
@@ -50,17 +54,28 @@ const toggleCartPanel = (newOpen) => () => {
   const handleClickOpenProductDetailsModal= () => {
     setopenProductDetailsModal(true);
   };
-
-  const handleCloseProductDetailsModal = () => {
+ const handleCloseProductDetailsModal = () => {
     setopenProductDetailsModal(false);
   };
+
+  const openAlertBox=(status,msg)=>{
+    if(status==="success"){
+      toast.success(msg);
+    }
+    if(status==="error"){
+      toast.error(msg);
+    }
+   
+
+  }
 
   const values={
     setopenProductDetailsModal,
     handleClickOpenProductDetailsModal,
     setopenCartPanel,
     toggleCartPanel,
-    openCartPanel
+    openCartPanel,
+    openAlertBox
   }
   // State to track the selected category
   const [selectedCategory, setSelectedCategory] = useState("FASHION");
@@ -104,12 +119,20 @@ const toggleCartPanel = (newOpen) => () => {
 
            <Route path="/cart" element={<Cart/>} />
 
+            {/* {Verify route} */}
+           <Route path="/verify" element={<Verify/>} />
+
+            {/* {forgot password route} */}
+            <Route path="/forget-password" element={<ForgetPassword1/>} />
+
+
         </Routes>
         <Footer />
         <MediaFooter />
       </div>
       </MyContext.Provider>
     </Router>
+    <Toaster />
 
 <Dialog
 open={openProductDetailsModal}
