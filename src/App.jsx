@@ -35,6 +35,7 @@ import Verify from "./components/pages/Verify";
 
 import toast, { Toaster } from 'react-hot-toast';
 import ForgetPassword1 from "./components/pages/Forgetpassword";
+import Checkout from "./components/pages/Checkout";
 
 
 export default function App() {
@@ -124,6 +125,9 @@ const toggleCartPanel = (newOpen) => () => {
 
             {/* {forgot password route} */}
             <Route path="/forget-password" element={<ForgetPassword1/>} />
+           
+           {/* {checkout page route} */}
+           <Route path="/checkout" element={<Checkout/>} />
 
 
         </Routes>
