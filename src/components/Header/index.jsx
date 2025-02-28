@@ -152,13 +152,17 @@ anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 </MenuItem>
 </Link>
 
+
 <MenuItem onClick={handleClose}>
   <IoBagCheckSharp className='mr-2'/> <span className='text-[14px]'>Orders</span>
 </MenuItem>
 
+<Link to="/my-list" className='w-full block'>
 <MenuItem onClick={handleClose}>
   <IoMdHeart className='mr-2'/> <span className='text-[14px]'>My List</span>
 </MenuItem>
+</Link>
+
 <MenuItem onClick={handleClose}>
   <IoIosLogOut className='mr-2'/> <span className='text-[14px]'>Logout</span>
 </MenuItem>

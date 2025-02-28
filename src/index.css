@@ -25,10 +25,13 @@ body {
 }
 
 .myAccountTabs li a:before{content:''; width:2px; height: 100%;
-   position: absolute; top:0px;left: 0px; background: #ff5252; transition: all 0.3s ease-in-out; opacity: 0;}
+   position: absolute; top:0px;left: 0px;  transition: all 0.3s ease-in-out; opacity: 0;}
 
    .myAccountTabs li a.active::before{height: 100%; opacity: 1; top:0px;}
 
+   .myAccountTabs li a.active::after{
+    color: #ff5252 !important ; background-color: #ff5252 !important;
+   }
    .myAccountTabs li a.active button svg{
     color: #ff5252 !important; opacity: 1 !important;
    }

@@ -39,6 +39,9 @@ import Checkout from "./components/pages/Checkout";
 import Myaccount from "./components/pages/MyAccount";
 
 
+import MyList from "./components/pages/MyList";
+
+
 export default function App() {
 
   const [openProductDetailsModal, setopenProductDetailsModal] = useState(false);
@@ -135,6 +138,9 @@ const toggleCartPanel = (newOpen) => () => {
 
            {/* {my-account page route} */}
            <Route path="/my-account" element={<Myaccount/>} />
+
+           {/* {my-listitems page route} */}
+           <Route path="/my-list" element={<MyList/>} />
 
 
         </Routes>
