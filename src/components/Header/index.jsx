@@ -152,10 +152,12 @@ anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 </MenuItem>
 </Link>
 
-
+<Link to="/my-orders" className='w-full block'>
 <MenuItem onClick={handleClose}>
   <IoBagCheckSharp className='mr-2'/> <span className='text-[14px]'>Orders</span>
 </MenuItem>
+</Link>
+
 
 <Link to="/my-list" className='w-full block'>
 <MenuItem onClick={handleClose}>

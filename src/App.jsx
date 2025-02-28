@@ -40,6 +40,7 @@ import Myaccount from "./components/pages/MyAccount";
 
 
 import MyList from "./components/pages/MyList";
+import Orders from "./components/pages/Order";
 
 
 export default function App() {
@@ -141,6 +142,9 @@ const toggleCartPanel = (newOpen) => () => {
 
            {/* {my-listitems page route} */}
            <Route path="/my-list" element={<MyList/>} />
+
+           {/* {my-orders page route} */}
+           <Route path="/my-orders" element={<Orders/>} />
 
 
         </Routes>
