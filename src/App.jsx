@@ -36,6 +36,7 @@ import Verify from "./components/pages/Verify";
 import toast, { Toaster } from 'react-hot-toast';
 import ForgetPassword1 from "./components/pages/Forgetpassword";
 import Checkout from "./components/pages/Checkout";
+import Myaccount from "./components/pages/MyAccount";
 
 
 export default function App() {
@@ -43,6 +44,7 @@ export default function App() {
   const [openProductDetailsModal, setopenProductDetailsModal] = useState(false);
   const [maxWidth, setMaxWidth] = React.useState('lg');
   const [fullWidth, setFullWidth] = React.useState(true);
+  const [isLogin,setIsLogin] =useState(true)
 
   const [openCartPanel, setopenCartPanel] = useState(false);
 
@@ -76,7 +78,9 @@ const toggleCartPanel = (newOpen) => () => {
     setopenCartPanel,
     toggleCartPanel,
     openCartPanel,
-    openAlertBox
+    openAlertBox,
+    isLogin,
+    setIsLogin
   }
   // State to track the selected category
   const [selectedCategory, setSelectedCategory] = useState("FASHION");
@@ -128,6 +132,9 @@ const toggleCartPanel = (newOpen) => () => {
            
            {/* {checkout page route} */}
            <Route path="/checkout" element={<Checkout/>} />
+
+           {/* {my-account page route} */}
+           <Route path="/my-account" element={<Myaccount/>} />
 
 
         </Routes>
