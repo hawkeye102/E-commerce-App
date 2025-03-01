@@ -8,10 +8,12 @@ import Homecatslider from "../HomeCatSlider";
 
 const Slider = () => {
   const slides = [
-    "/images/image five.jpg",
-    "/images/image one.jpg",
-    "/images/image two .jpg",
+    "/images/slideban3.jpg",
     "/images/imagetwo.jpg",
+    "/images/image five.jpg",
+
+    "/images/slideBanner2.jpg",
+    
     
   ];
 

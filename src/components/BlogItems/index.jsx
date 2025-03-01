@@ -11,7 +11,7 @@ const blogs = [
   {
     title: "Achieving excellence through customized solutions",
     date: "2025-02-17",
-    image: "electronics/electronics1.jpg",
+    image: "Blog/blog1.jpg",
     content: `The world is moving towards personalized solutions in every industry. Whether it's technology, healthcare, or business, customization allows organizations to meet specific client needs effectively. By focusing on tailored approaches, businesses can improve customer satisfaction, increase efficiency, and gain a competitive edge in the market.
 
     In the field of technology, customized solutions play a crucial role in software development, AI-driven applications, and data-driven decision-making. Companies that invest in personalized strategies often see higher engagement and customer retention.
@@ -23,20 +23,48 @@ const blogs = [
   {
     title: "Delivering measurable results and precision through proven strategies",
     date: "2025-02-17",
-    image: "electronics/electronics2.jpg",
-    content: "This is the content of the blog post. It will be used to calculate read time."
+    image: "Blog/blog2.jpg",
+    content: `In today's fast-paced world, success relies on data-driven 
+    decisions and strategic execution. By leveraging advanced analytics,
+     precision planning, and cutting-edge technology, businesses 
+     can achieve consistent, measurable outcomes. Proven methodologies, 
+     backed by real-time insights and performance tracking,
+      help organizations refine their processes and maximize
+       efficiency. Whether optimizing operations, improving 
+       customer engagement, or enhancing productivity, strategic
+       
+       precision ensures sustainable growth. With a focus on accuracy and 
+       continuous improvement, companies can confidently navigate challenges, 
+       adapt to market demands, and drive innovation. By implementing well-tested 
+       strategies and data-backed decision-making, businesses can transform goals 
+       into tangible, measurable success—ensuring long-term excellence in a competitive landscape.`
   },
+
+
+
+
+
+
+
+
   {
     title: "Empowering change, delivering every single time success",
     date: "2025-02-17",
-    image: "electronics/electronics3.jpg",
-    content: "This is the content of the blog post. It will be used to calculate read time."
+    image: "Blog/blog3.jpg",
+    content: `True success comes from adaptability, resilience, and innovation. 
+    By embracing change and pushing boundaries, individuals and 
+    businesses can unlock new opportunities. With the right mindset and strategic actions, 
+    consistent growth and lasting impact become achievable, ensuring success every time.`
   },
   {
     title: "Shaping sustainable growth for future solutions",
     date: "2025-02-17",
-    image: "electronics/electronics4.jpg",
-    content: "This is the content of the blog post. It will be used to calculate read time."
+    image: "Blog/blog4.jpg",
+    content: `Sustainable development is the key to a better future.
+     By integrating renewable energy, eco-friendly technologies, and responsible practices,
+      we can create lasting solutions that benefit both people and the planet. 
+      Innovation, efficiency, and conscious decision-making 
+    drive long-term progress and environmental balance.`
   },
 ];
 

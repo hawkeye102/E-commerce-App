@@ -10,21 +10,12 @@ import { Scale, Heart, Expand } from "lucide-react";
 import { MyContext } from "../../App";
 
 const products = [
-  {
-    id: 1,
-    name: "Apple iphone",
-    img: "beauty/beauty1.jpg",
-    hoverImg: "beauty/beauty2.jpg",
-    price: "₹25,000",
-    oldPrice: "₹28,000",
-    discount: "10%",
-     rating:"4.3"
-  },
+  
   {
     id: 2,
     name: "LIVE FASHION Black Women PU Bag",
-    img: "/images/women-bag.jpg",
-    hoverImg: "/images/iphone15-hover.jpg",
+    img: "hover/hov2.jpg",
+    hoverImg: "hover/hov2back.jpg",
     price: "₹1,450.00",
     oldPrice: "₹1,850.00",
     discount: "15%",
@@ -33,8 +24,8 @@ const products = [
   {
     id: 3,
     name: "Men Round Toe Lace-Up Sandals",
-    img: "/images/sandals.jpg",
-    hoverImg: "/images/iphone15-hover.jpg",
+    img: "hover/hov3.jpg",
+    hoverImg: "hover/hov3back.jpg",
     price: "₹450.00",
     oldPrice: "₹250.00",
     discount: "8%",
@@ -43,8 +34,8 @@ const products = [
   {
     id: 4,
     name: "FLORES Stylish Fashion Backpack",
-    img: "/images/blue-bag.jpg",
-    hoverImg: "/images/iphone15-hover.jpg",
+    img: "hover/hov5.jpg",
+    hoverImg: "hover/hov1back.jpg",
     price: "₹1,400.00",
     oldPrice: "₹1,550.00",
     discount: "10%",
@@ -53,8 +44,8 @@ const products = [
   {
     id: 5,
     name: "Apple iPhone 15 256GB Black",
-    img: "/images/iphone15-black.jpg",
-    hoverImg: "/images/iphone15-hover.jpg",
+    img: "hover/hov7back.jpg",
+    hoverImg: "hover/hov5back.jpg",
     price: "₹35,000.00",
     oldPrice: "₹45,000.00",
     discount: "10%",
@@ -63,8 +54,8 @@ const products = [
   {
     id: 6,
     name: "ZAALQA Girls Black Handbag",
-    img: "/images/black-handbag.jpg",
-    hoverImg: "/images/iphone15-hover.jpg",
+    img: "hover/hov7.jpg",
+    hoverImg: "hover/hov7back.jpg",
     price: "₹100.00",
     oldPrice: "₹750.00",
     discount: "10%",
@@ -73,8 +64,8 @@ const products = [
   {
     id: 7,
     name: "ZAALQA Girls Black Handbag",
-    img: "/images/black-handbag.jpg",
-    hoverImg: "/images/iphone15-hover.jpg",
+    img: "hover/hov8.jpg",
+    hoverImg: "hover/hov8back.jpg",
     price: "₹100.00",
     oldPrice: "₹750.00",
     discount: "10%",
@@ -83,8 +74,8 @@ const products = [
   {
     id: 8,
     name: "ZAALQA Girls Black Handbag",
-    img: "/images/black-handbag.jpg",
-    hoverImg: "/images/iphone15-hover.jpg",
+    img: "hover/hov2.jpg",
+    hoverImg: "hover/hov2back.jpg",
     price: "₹100.00",
     oldPrice: "₹750.00",
     discount: "10%",
@@ -93,8 +84,8 @@ const products = [
   {
     id: 9,
     name: "ZAALQA Girls Black Handbag",
-    img: "/images/black-handbag.jpg",
-    hoverImg: "/images/iphone15-hover.jpg",
+    img: "hover/hov5.jpg",
+    hoverImg: "hover/hov6back.jpg",
     price: "₹100.00",
     oldPrice: "₹750.00",
     discount: "10%",
