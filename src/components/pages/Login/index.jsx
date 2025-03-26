@@ -5,14 +5,16 @@ import { IoMdEye } from "react-icons/io";
 import { IoMdEyeOff } from "react-icons/io";
 import { Link, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
-import { Email } from "@mui/icons-material";
+import { postData } from "../../../utils/api";
 import { MyContext } from "../../../App";
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const Login=()=>{
     const [isShowPassword,setisShowPassword] =useState(false)
+    const [isLoading,setisLoading] = useState(false)
 
-    const [formfields,setformfields] =useState({
+    const [Formfields,setFormfields] =useState({
         email:'',
         password:''
     })
@@ -20,6 +22,78 @@ const Login=()=>{
 
     const context=useContext(MyContext)
     const history=useNavigate()
+
+    const onChangeInput=(e)=>{
+        const {name,value} = e.target;
+        setFormfields(()=>{
+            return{ 
+                ...Formfields,
+            [name]:value
+        }
+           
+        })
+        
+    }
+    const valideValue = Object.values(Formfields).every(el=>el);// this ensures untill the fields are empty u cant register
+
+    const handleSubmit=(e)=>{
+    
+            e.preventDefault();
+            setisLoading(true);
+           
+    
+            if(Formfields.email===""){
+                context.openAlertBox("error","please enter  email id")
+                setisLoading(false);
+            return;
+            }
+    
+            if(Formfields.password===""){
+                context.openAlertBox("error","please enter password")
+                setisLoading(false);
+                return;
+            }
+            postData('/api/users/login',Formfields).then((res)=>{
+    
+    
+                console.log(res)
+    
+                if (res?.success) { 
+                    console.log("Before Storing Email:", Formfields.email);  // Debugging 
+                    // Show success alert
+                    context.openAlertBox("success", "login successful!");
+                    localStorage.setItem("userEmail",  Formfields.email);
+                    console.log("Stored Email:",  Formfields.email);
+    
+                    setFormfields({ email: "", password: "" });
+    
+                   // Redirect user to home page
+                   setTimeout(() => {
+                    history('/');  // Redirect to Home Page
+                    localStorage.removeItem("userEmail");
+                }, 500);
+                }
+                else if (res?.message?.toLowerCase().includes("already")) {  
+                    //  If API returns "user already exists"
+                    context.openAlertBox("error", "User already registered!");
+                } else {
+                    // Show error alert when user is already registered
+                    context.openAlertBox("error", res?.message || "loginfailed! Try again.");
+                }
+                
+            })
+            .catch((err) => {
+                console.error("login failed:", err);
+                context.openAlertBox("error", "Network error! Please try again.");
+            })
+            .finally(() => {
+                setisLoading(false);
+            });
+                
+               
+            
+    
+        }
 
     const forgetPassword=(params)=> {
         
@@ -35,25 +109,32 @@ return(
             <div className="  card shadow-md w-[400px] m-auto rounded-md ! bg-white py-8 px-10">
                 <h2 className="text-[20px] font-[600] text-center ">Login to your Account</h2>
 
-                <form className="w-full mt-5">
+                <form className="w-full mt-5" onSubmit={handleSubmit}>
                   <div className="form-group w-full mb-5 relative">
                   <TextField 
                   
                   type="email"
-                  id="Email" 
-                  label="Email Id"
+                  id="email" 
+                  label="email Id"
                    variant="outlined"
                    name="email"
-                  className="w-full" />
+                   value={Formfields.email}
+                   disabled={isLoading===true ? true :false}
+                   onChange={onChangeInput}
+                  className="w-full" 
+                  />
                   </div>
 
                   <div className="form-group w-full mb-5 relative">
                   <TextField 
-                  type={isShowPassword===false? "Password" :'text'}
-                  id="Password" 
-                  label="Password" 
+                  type={isShowPassword===false? "password" :'text'}
+                  id="password" 
+                  label="password" 
                   variant="outlined"
                   name="password"
+                  value={Formfields.password}
+                  disabled={isLoading===true ? true :false}
+                  onChange={onChangeInput}
                   className="w-full" />
                   
                   <Button type="submit" className="!absolute top-[8px] right-[5px] z-50 !w-[45px] !h-[45px] !min-w-[35px]
@@ -67,10 +148,16 @@ return(
                   cursor-pointer" onClick={forgetPassword}>Forget Password?</a>
                 
                   <div className="flex items-center gap-2">
-    <button className=" font-[400] !text-center !mt-5 bg-red-400 text-white  rounded-lg shadow-lg !w-full !h-[40px]
-    hover:bg-black hover:shadow-xl transition-all duration-300 ease-in-out  mb-3">
-    Login
-  </button>
+   <button 
+       type="submit" 
+       disabled={!valideValue} 
+       className={`flex items-center justify-center gap-2 font-[400] !text-center !mt-5 bg-red-400 text-white rounded-lg shadow-lg !w-full !h-[40px] mb-3
+         transition-all duration-300 ease-in-out 
+         ${valideValue ? "hover:bg-black hover:shadow-xl" : "opacity-70"}`}
+     >
+       {isLoading && <CircularProgress color="inherit" className="!w-[20px] !h-[20px]" />} 
+       Login
+     </button>
 </div>
  
   <p className="text-center">Not Registered? <Link className=" text-blue-600 link text-[16px] font-[500]" to="/Register">Sign Up</Link></p>
