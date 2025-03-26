@@ -43,12 +43,15 @@ import MyList from "./components/pages/MyList";
 import Orders from "./components/pages/Order";
 
 
+
+
 export default function App() {
 
   const [openProductDetailsModal, setopenProductDetailsModal] = useState(false);
   const [maxWidth, setMaxWidth] = React.useState('lg');
   const [fullWidth, setFullWidth] = React.useState(true);
   const [isLogin,setIsLogin] =useState(true)
+  const apiUrl=import.meta.env.VITE_API_URL;
 
   const [openCartPanel, setopenCartPanel] = useState(false);
 
@@ -84,7 +87,8 @@ const toggleCartPanel = (newOpen) => () => {
     openCartPanel,
     openAlertBox,
     isLogin,
-    setIsLogin
+    setIsLogin,
+    
   }
   // State to track the selected category
   const [selectedCategory, setSelectedCategory] = useState("FASHION");

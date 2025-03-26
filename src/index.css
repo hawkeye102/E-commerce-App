@@ -35,3 +35,9 @@ body {
    .myAccountTabs li a.active button svg{
     color: #ff5252 !important; opacity: 1 !important;
    }
+
+
+   /* button.MuiCircularProgress-root{
+    width: 20px !important;
+    height: 20px !important;
+   } */

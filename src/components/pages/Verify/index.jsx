@@ -1,18 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OtpBox from "../../Otpbox";
+import { postData } from "../../../utils/api";
 
 const Verify=()=>{
     const [otp,setOtp]=useState("")
+    const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const userEmail = localStorage.getItem("userEmail");
+    if (userEmail) {
+      setEmail(userEmail);
+    }
+  }, []);
+
     const handleOtpchange=(value)=>{
    setOtp(value)
     }
 
-    const verifyOtp=(e)=>{
+    const verifyOtp= async(e)=>{
     e.preventDefault();
+    const storedEmail = localStorage.getItem("userEmail");
+
+    if (!storedEmail) {
+        alert("No email found! Please try signing up again.");
+        return;
+    }
+    
     alert(otp)
+    const res = await postData("/api/users/verify", {
+        email: storedEmail,
+        otp: otp
+    });
+
+    console.log("API Response:", res);
+
+    if (res.success) {
+        alert("OTP Verified Successfully!");
+        //  Remove email from local storage after successful verification
+      localStorage.removeItem("userEmail");
+
+      // Redirect user to login page
+      window.location.href = "/login"; 
+    } else {
+        alert(`Error: ${res.message}`);
+    }
     }
 
-    
     return(
         
         <section className="section py-10 min-h-screen bg-cover bg-center"
@@ -26,7 +59,9 @@ const Verify=()=>{
 
      <form onSubmit={verifyOtp}>
                          <h2 className="text-[20px] font-[600] text-center mt-1 ">Verify Otp</h2>
-                    <p className="text-center mb-1.5 ">Otp sent to <span className="text-red-500 font-[500] pl-2">myaccount@gmail.com</span></p>
+                   <p className="text-center mb-1.5">
+              Otp sent to <span className="text-red-500 font-[500] pl-2">{email || "your email"}</span>
+            </p>
     <OtpBox length={6} onChange={ handleOtpchange}/>
 
     <div className="btn flex justify-center w-full">
