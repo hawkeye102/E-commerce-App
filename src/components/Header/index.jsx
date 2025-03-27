@@ -7,7 +7,7 @@ import { Tooltip } from "@mui/material";
 import { FavoriteBorder, CompareArrows, ShoppingCart, PersonOutline,PersonAddOutlined} from "@mui/icons-material";
 
 import { Link } from "react-router-dom";
-import { useContext, useState } from 'react';
+import { useContext, useState,useEffect } from 'react';
 import { MyContext } from '../../App';
 import Button from '@mui/material/Button';
 import { FaRegUser } from "react-icons/fa";
@@ -18,6 +18,7 @@ import Divider from '@mui/material/Divider';
 import { IoBagCheckSharp } from "react-icons/io5";
 import { IoMdHeart } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
+import { postData } from '../../utils/api';
 
 <Link to="/products" className="hover:text-red-400">
   Shop All Products
@@ -25,14 +26,52 @@ import { IoIosLogOut } from "react-icons/io";
 
 export default function Header() {
   const context=useContext(MyContext)
+
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  
   const [anchorEl, setAnchorEl] = useState(null);
+
+  useEffect(() => {
+    console.log("Updating Navbar...");
+  
+    const storedName = localStorage.getItem("userName");
+    const storedEmail = localStorage.getItem("userEmail");
+  
+    console.log("from localStorage - Name:", storedName);
+    console.log("from localStorage - Email:", storedEmail);
+  
+    setUserName(storedName || "Guest");
+    setUserEmail(storedEmail || "guest@example.com");
+  }, [context.isLogin]);  //Reacts to login changes
+  
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const logout=()=>{
+    setAnchorEl(null);
+
+    postData("/api/users/logout").then((res)=>{
+console.log(res)
+
+ // Clear localStorage
+ localStorage.removeItem("accessToken");
+ localStorage.removeItem("refreshToken");
+ localStorage.removeItem("userEmail");
+ localStorage.removeItem("userName");
+
+ context.setIsLogin(false)
+ // Refresh the page or trigger a state change in Navbar
+ window.location.reload(); // OR use context/state management
+    });
+  }
   return (
     <div>
     <header className="w-full border-b border-gray-200 text-sm">
@@ -102,10 +141,10 @@ export default function Header() {
    <FaRegUser className='text-[16px] text-[#000]'/>
    
     </Button>
-    <div className='flex  flex-col'>
-    <span className='text-[14px] font-[500]'>John wilson</span>
-    <span className='text-[12px] font-[500]'>John_wilson@gmail.com</span>
-   </div>
+    <div className="flex flex-col">
+      <span className="text-[14px] font-[500]">{userName}</span>
+      <span className="text-[12px] font-[500]">{userEmail}</span>
+    </div>
 
   </div>
 
@@ -165,7 +204,7 @@ anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 </MenuItem>
 </Link>
 
-<MenuItem onClick={handleClose}>
+<MenuItem onClick={logout}>
   <IoIosLogOut className='mr-2'/> <span className='text-[14px]'>Logout</span>
 </MenuItem>
 <Divider />

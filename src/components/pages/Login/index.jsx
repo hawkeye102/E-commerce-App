@@ -59,18 +59,39 @@ const Login=()=>{
                 console.log(res)
     
                 if (res?.success) { 
-                    console.log("Before Storing Email:", Formfields.email);  // Debugging 
+                    
                     // Show success alert
                     context.openAlertBox("success", "login successful!");
-                    localStorage.setItem("userEmail",  Formfields.email);
-                    console.log("Stored Email:",  Formfields.email);
+                    // Store user data in localStorage
+            localStorage.setItem("accessToken", res?.accessToken);
+            localStorage.setItem("refreshToken", res?.refreshToken);
+            localStorage.setItem("userName", res?.name);
+            localStorage.setItem("userEmail", res?.email);
+                    
+
+            // Verify stored values
+      console.log("Stored Name:", localStorage.getItem("userName"));
+      console.log("Stored Email:", localStorage.getItem("userEmail"));
+      console.log("Stored AccessToken:", localStorage.getItem("accessToken"));
     
                     setFormfields({ email: "", password: "" });
+
+
+                   //  Check if tokens exist before storing
+      if (res?.accessToken && res?.refreshToken) {
+        localStorage.setItem("accessToken", res.accessToken);
+        localStorage.setItem("refreshToken", res.refreshToken);
+        console.log("Tokens stored successfully!");
+      } else {
+        console.error("Tokens missing in API response!");
+      }
+
+      context.setIsLogin(true)
     
                    // Redirect user to home page
                    setTimeout(() => {
                     history('/');  // Redirect to Home Page
-                    localStorage.removeItem("userEmail");
+                   
                 }, 500);
                 }
                 else if (res?.message?.toLowerCase().includes("already")) {  

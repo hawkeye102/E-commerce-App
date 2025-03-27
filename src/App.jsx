@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Slider from "./components/SwiperSlider";
 import PopularProducts from "./components/PopularProducts";
@@ -50,7 +50,7 @@ export default function App() {
   const [openProductDetailsModal, setopenProductDetailsModal] = useState(false);
   const [maxWidth, setMaxWidth] = React.useState('lg');
   const [fullWidth, setFullWidth] = React.useState(true);
-  const [isLogin,setIsLogin] =useState(true)
+  const [isLogin,setIsLogin] =useState(false)
   const apiUrl=import.meta.env.VITE_API_URL;
 
   const [openCartPanel, setopenCartPanel] = useState(false);
@@ -58,6 +58,17 @@ export default function App() {
 const toggleCartPanel = (newOpen) => () => {
   setopenCartPanel(newOpen);
 };
+
+useEffect(()=>{
+const token = localStorage.getItem('accessToken');
+if(token!==undefined && token!== null && token !==""){
+  setIsLogin(true)
+}else{
+  setIsLogin(false)
+}
+
+
+},[isLogin])
 
 
 
