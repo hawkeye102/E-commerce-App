@@ -20,30 +20,40 @@ const Verify=()=>{
     const verifyOtp= async(e)=>{
     e.preventDefault();
     const storedEmail = localStorage.getItem("userEmail");
+    const forgotPasswordFlow = localStorage.getItem("forgotPasswordFlow") === "true";
 
     if (!storedEmail) {
         alert("No email found! Please try signing up again.");
         return;
     }
+    console.log( "Forgot Password Flow:", forgotPasswordFlow);
+
+    try {
+      const url = forgotPasswordFlow ? "/api/users/verify-forget-password" : "/api/users/verify";
+
+      const res = await postData(url, { email: storedEmail, otp });
+
+      console.log("API Response:", res);
+
+      if (res.success) {
+          alert("OTP Verified Successfully!");
+
+          // Remove stored values
+          localStorage.removeItem("userEmail");
+          localStorage.removeItem("forgotPasswordFlow");
+
+         
+          window.location.href = forgotPasswordFlow ? "/forget-password" : "/login";
+      } else {
+          alert(`Error: ${res.message}`);
+      }
+  } catch (error) {
+      console.error("Error in API Call:", error);
+      alert("Network error. Please try again.");
+  }
     
-    alert(otp)
-    const res = await postData("/api/users/verify", {
-        email: storedEmail,
-        otp: otp
-    });
-
-    console.log("API Response:", res);
-
-    if (res.success) {
-        alert("OTP Verified Successfully!");
-        //  Remove email from local storage after successful verification
-      localStorage.removeItem("userEmail");
-
-      // Redirect user to login page
-      window.location.href = "/login"; 
-    } else {
-        alert(`Error: ${res.message}`);
-    }
+   
+    
     }
 
     return(

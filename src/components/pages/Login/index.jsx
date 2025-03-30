@@ -116,11 +116,45 @@ const Login=()=>{
     
         }
 
-    const forgetPassword=(params)=> {
+    const forgetPassword=()=> {
+        if(Formfields.email===""){
+            context.openAlertBox("error","please enter  email id")
+         return false;
+        }
+
+        //calling the post data api
+        postData('/api/users/forgot-password',{email:Formfields.email})
+        .then((res)=>{
+            console.log("forgot password api response",res);
+
+            if (res?.message?.toLowerCase().includes("otp sent")) {  
+                context.openAlertBox("success", "OTP sent to your email!");
+                localStorage.setItem("userEmail", Formfields.email);
+                console.log("Stored User Email:", Formfields.email);
+                
+                // a flag to check if it is in forgot password or not 
+                localStorage.setItem("forgotPasswordFlow", "true"); 
+               
+                 setTimeout(()=>{
+                    history("/verify");
+                 },[300])
+                    
+               
+            } else {
+                context.openAlertBox("error", res?.message || "Failed to send OTP. Try again!");
+            }
         
+         
+        }).catch((err)=>{
+            console.log("Error sending forget request")
+            context.openAlertBox("error", "Network error  ! please try again") 
+
+
+        })
        
-        history('/verify')
-    context.openAlertBox("success", "otp send")
+       
+        
+    
     }
 
 return(
