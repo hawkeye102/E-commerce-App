@@ -39,7 +39,6 @@ const Verify=()=>{
           alert("OTP Verified Successfully!");
 
           // Remove stored values
-          localStorage.removeItem("userEmail");
           localStorage.removeItem("forgotPasswordFlow");
 
          
