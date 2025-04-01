@@ -6,7 +6,7 @@ import SearchBar from './SearchBar';
 import { Tooltip } from "@mui/material";
 import { FavoriteBorder, CompareArrows, ShoppingCart, PersonOutline,PersonAddOutlined} from "@mui/icons-material";
 
-import { Link } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 import { useContext, useState,useEffect } from 'react';
 import { MyContext } from '../../App';
 import Button from '@mui/material/Button';
@@ -20,9 +20,12 @@ import { IoMdHeart } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
 import { postData } from '../../utils/api';
 
+
+
 <Link to="/products" className="hover:text-red-400">
   Shop All Products
 </Link>
+
 
 export default function Header() {
   const context=useContext(MyContext)
@@ -32,6 +35,7 @@ export default function Header() {
   
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const history = useNavigate()
   useEffect(() => {
     console.log("Updating Navbar...");
   
@@ -69,7 +73,8 @@ console.log(res)
 
  context.setIsLogin(false)
  // Refresh the page or trigger a state change in Navbar
- window.location.reload(); // OR use context/state management
+ history('/'); // OR use context/state management
+ 
     });
   }
   return (
@@ -206,6 +211,7 @@ anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
 
 <MenuItem onClick={logout}>
   <IoIosLogOut className='mr-2'/> <span className='text-[14px]'>Logout</span>
+  
 </MenuItem>
 <Divider />
 

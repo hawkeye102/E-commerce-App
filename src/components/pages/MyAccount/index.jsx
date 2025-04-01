@@ -1,16 +1,26 @@
 import  Button  from "@mui/material/Button";
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
 import { IoBagCheckSharp } from "react-icons/io5";
 import { IoMdHeart } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import AccountsSideBar from "../../Myaccountsidebar";
+import { MyContext } from "../../../App";
 
 
 const Myaccount=()=>{
+    
+    const context = useContext(MyContext)
+    const history = useNavigate()
+     useEffect(()=>{
+        const token = localStorage.getItem('accessToken')
+        if (token===null){
+            history('/')
+        }
+     },[context?.isLogin])
     return(
         <section className="py-10 w-full">
             <div className="container flex  gap-3 p-5">
