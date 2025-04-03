@@ -11,6 +11,7 @@ import AccountsSideBar from "../../Myaccountsidebar";
 import { MyContext } from "../../../App";
 import { UpdateData } from "../../../utils/api";
 import CircularProgress from '@mui/material/CircularProgress';
+import ChangePassword from "./changePassword";
 
 
 
@@ -19,6 +20,7 @@ const Myaccount=()=>{
     const context = useContext(MyContext)
     const history = useNavigate()
     const [isLoading,setisLoading] = useState(false)
+    const [showChangePassword, setShowChangePassword] = useState(false);
 
     
     const [Formfields,setFormfields] =useState({
@@ -89,7 +91,11 @@ const Myaccount=()=>{
  
     <div className="col2 w-[50%]">
         <div className="card bg-white p-5 shadow-md rounded-md">
-            <h2>My Profile</h2>
+            <div classname="flex items-center pb-0">
+                <h2>My Profile</h2>
+            
+            </div>
+            
             <hr/>
 
         <form className="mt-5" onSubmit={handleSubmit}>
@@ -147,19 +153,30 @@ const Myaccount=()=>{
         Update Profile
       </button>
 
- 
-  {/* <Button className="!border !border-blue-600 !text-blue-600 !px-4 !py-2 !rounded-md !transition-all duration-300 hover:text-white">
-    Cancel
-  </Button> */}
+      
+            
+  
 </div>
 
 
    
 
         </form>
-        </div>
+
+       
     </div>
+    <div className="card bg-white p-3 shadow-md rounded-md mt-1">
+                        
+                            
+                        <Button variant="contained" color="error" onClick={() => setShowChangePassword(!showChangePassword)} className="mt-4">
+                        Change Password
+                    </Button>
+
+                    {showChangePassword && <ChangePassword onClose={() => setShowChangePassword(false)} />}
+                </div>
+        </div>
             </div>
+           
         </section>
        
     )
