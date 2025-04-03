@@ -42,12 +42,42 @@ export const editData = async (url, updatedData) => {
         },
         body: updatedData,  // No JSON stringify because it's FormData
     };
-
+    
     try {
-        console.log("Sending Request to:", apiUrl + url);
+        console.log("Sending Request to:",apiUrl+url);
         console.log("Request Data:", updatedData);
         
-        const res = await fetch(apiUrl + url, config);
+        const res = await fetch( apiUrl+url, config);
+        const data = await res.json();
+
+        console.log("Response Received:", data);
+        return data;
+    } catch (error) {
+        console.error("Error in editData:", error);
+        throw error;
+    }
+};
+
+
+
+export const UpdateData = async (url, updatedData) => {
+    const token = localStorage.getItem("accessToken");
+    console.log("Token being sent:", token);
+
+    const config = {
+        method: "PUT",
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData)
+    };
+    
+    try {
+        console.log("Sending Request to:",apiUrl+url);
+        console.log("Request Data:", updatedData);
+        
+        const res = await fetch( apiUrl+url, config);
         const data = await res.json();
 
         console.log("Response Received:", data);

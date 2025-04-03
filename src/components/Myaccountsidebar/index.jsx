@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState,useEffect} from "react";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
 import { IoBagCheckSharp } from "react-icons/io5";
@@ -20,8 +20,23 @@ const AccountsSideBar=()=>{
      let uniqueArray =[];
      let selectedImages=[]
 
+    useEffect(() => {
+  const savedAvatar = localStorage.getItem("userAvatar");
+  if (savedAvatar) {
+    setpreview([savedAvatar]);
+  }
+  // If context.res.avatar exists, it would override localStorage
+  if (context?.res?.avatar) {
+    setpreview([context.res.avatar]);
     
+  }
+//   if (!context?.res?.avatar) {
+//      localStorage.removeItem("userAvatar");
+//      setpreview([])
+// }
+}, [context?.res?.avatar]);
 
+      
 
      const onChangeFile=async(e,apiEndPoint)=>{
           try {
@@ -43,6 +58,20 @@ const AccountsSideBar=()=>{
                          formdata.append('avatar',file)
 
                          editData("/api/users/user-avatar",formdata).then((res)=>{
+                              setuploading(false)
+                              console.log("Full response:", res); // Check  full response
+                              console.log("Avatar URL:", res?.avatar); // Check if avatar exists
+                                    
+                              if (res?.avatar) {
+                                   localStorage.setItem("userAvatar", res.avatar);
+                                   setpreview([res.avatar]);
+                                    setUserAvatar(res.avatar);
+                               } else {
+                                   console.error("Avatar URL is missing from the response");
+                               }
+                              let avatar=[];
+                              avatar.push(res?.avatar)
+                              setpreview(avatar)
                               console.log(res);
                          })
                           
@@ -58,17 +87,37 @@ const AccountsSideBar=()=>{
              console.log(error)  
           }
      }
+     // Read name and email from localStorage
+  const userName = localStorage.getItem('userName') || context.name;
+  const userEmail = localStorage.getItem('userEmail') || context.email;
     return(
         <div className="card bg-white shadow-md rounded-md p-5 !sticky top-[10px]">
                         <div className="w-full p-3 flex-items justify-center flex-col">
                             <div className="w-[110px] h-[110px] rounded-full 
                             overflow-hidden mb-4 relative group ml-3 !flex items-center !justify-center !bg-gray-400">
-             {
-             uploading===true ?<CircularProgress color="inherit" /> :
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjFWjv0YYht3Dl8wqfmp-ZdFzYxWwf1G77Q8qKp11OUlsHgC1VZUErZF4&s" className=
-                   "w-full h-full object-cover " />
+            {uploading === true ? (
+  <CircularProgress color="inherit" />
+) : (
+  preview?.length !== 0 ?
+  preview?.map((map, index) => {
+    return (
+      <img
+        key={index} // Add a key to avoid React warnings
+        src={map} // Use map as the image URL
+        alt={`Avatar ${index}`} // Add an alt text for accessibility
+        className="w-full h-full object-cover"
+      />
+    );
+  }) :
+  <img
+       
+        src={"User/user.png"} // Use map as the image URL
+        className="w-full h-full object-cover"
+      />
+)}
 
-             }
+              
+             
               
                               
                  
@@ -85,8 +134,8 @@ const AccountsSideBar=()=>{
                             name="avatar"/>
                             </div>
                             </div>
-                           <h3 className="font-[600] ml-3">Rajesh Sharma</h3>
-                           <h6 className="text-[14px] font-[600] ">rjSharma@gmail.com</h6>
+                            <h3 className="font-semibold text-lg">{userName}</h3>
+                            <h6 className="text-sm text-gray-600">{ userEmail }</h6>
                         </div>
                      
 

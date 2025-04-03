@@ -70,8 +70,10 @@ console.log(res)
  localStorage.removeItem("refreshToken");
  localStorage.removeItem("userEmail");
  localStorage.removeItem("userName");
+ localStorage.removeItem("userMobile");
+ localStorage.removeItem("useravatar");
 
- context.setIsLogin(false)
+ context.setIsLogin(false);
  // Refresh the page or trigger a state change in Navbar
  history('/'); // OR use context/state management
  

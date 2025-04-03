@@ -17,6 +17,7 @@ const Login=()=>{
     const [Formfields,setFormfields] =useState({
         email:'',
         password:''
+       
     })
     
 
@@ -67,9 +68,13 @@ const Login=()=>{
             localStorage.setItem("refreshToken", res?.refreshToken);
             localStorage.setItem("userName", res?.name);
             localStorage.setItem("userEmail", res?.email);
+            localStorage.setItem("userMobile", res?.mobile);  
+            localStorage.setItem("userAvatar", res?.avatar);
                     
 
             // Verify stored values
+            console.log("Stored mobile:", localStorage.getItem("usermobile"));
+            console.log("Stored avatar:", localStorage.getItem("useravatar"));
       console.log("Stored Name:", localStorage.getItem("userName"));
       console.log("Stored Email:", localStorage.getItem("userEmail"));
       console.log("Stored AccessToken:", localStorage.getItem("accessToken"));
