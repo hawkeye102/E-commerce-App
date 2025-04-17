@@ -128,7 +128,7 @@ const ForgetPassword1 = () => {
                         <div className="flex items-center gap-2">
                             <button 
                                   type="submit" 
-                                //   disabled={!valideValue} 
+                                // disabled={!valideValue} 
                                   className={`flex items-center justify-center gap-2 font-[400] !text-center !mt-5 bg-red-400 text-white rounded-lg shadow-lg !w-full !h-[40px] mb-3
                                     transition-all duration-300 ease-in-out 
                                    "hover:bg-black hover:shadow-xl"}`}

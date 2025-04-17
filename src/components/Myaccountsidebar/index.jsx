@@ -8,6 +8,7 @@ import { Form, NavLink } from "react-router-dom";
 import Button from '@mui/material/Button';
 import { MyContext } from "../../App";
 import CircularProgress from '@mui/material/CircularProgress';
+import {LuMapPinPlusInside} from "react-icons/lu";
 
 import { editData } from "../../utils/api";
 
@@ -92,9 +93,9 @@ const AccountsSideBar=()=>{
   const userEmail = localStorage.getItem('userEmail') || context.email;
     return(
         <div className="card bg-white shadow-md rounded-md p-5 !sticky top-[10px]">
-                        <div className="w-full p-3 flex-items justify-center flex-col">
-                            <div className="w-[110px] h-[110px] rounded-full 
-                            overflow-hidden mb-4 relative group ml-3 !flex items-center !justify-center !bg-gray-400">
+<div className="w-full p-3 flex-items justify-center flex-col">
+ <div className="w-[110px] h-[110px] rounded-full 
+overflow-hidden mb-4 relative group ml-3 !flex items-center !justify-center !bg-gray-400">
             {uploading === true ? (
   <CircularProgress color="inherit" />
 ) : (
@@ -115,28 +116,21 @@ const AccountsSideBar=()=>{
         className="w-full h-full object-cover"
       />
 )}
-
-              
-             
-              
-                              
-                 
-                          
-                           <div className="overlay w-[100%] h-[100%] absolute top-0 left-0 z-50 bg-[rgba(0,0,0,0.7)] 
-                           flex items-center justify-center cursor-pointer opacity-0 transition-all group-hover:opacity-100">
-                           <FaCloudUploadAlt className="text-[#fff] !text-[22px]"/>
-                           <input type="file" 
-                           className="absolute top-0 left-0 w-full h-full opacity-0"
-                           accept="image/*"
-                           onChange={(e)=>{
-                              onChangeFile(e, "api/users/user-avatar")
-                           }}
-                            name="avatar"/>
-                            </div>
-                            </div>
-                            <h3 className="font-semibold text-lg">{userName}</h3>
-                            <h6 className="text-sm text-gray-600">{ userEmail }</h6>
-                        </div>
+   <div className="overlay w-[100%] h-[100%] absolute top-0 left-0 z-50 bg-[rgba(0,0,0,0.7)] 
+ flex items-center justify-center cursor-pointer opacity-0 transition-all group-hover:opacity-100">
+ <FaCloudUploadAlt className="text-[#fff] !text-[22px]"/>
+ <input type="file" 
+ className="absolute top-0 left-0 w-full h-full opacity-0"
+ accept="image/*"
+ onChange={(e)=>{
+  onChangeFile(e, "api/users/user-avatar")
+ }}
+  name="avatar"/>
+ </div>
+</div>
+<h3 className="font-semibold text-lg">{userName}</h3>
+   <h6 className="text-sm text-gray-600">{ userEmail }</h6>
+     </div>
                      
 
                      <ul className="list-none myAccountTabs">
@@ -147,6 +141,12 @@ const AccountsSideBar=()=>{
                         !capitalize !text-black !justify-start !text-left">
                              <FaRegUser className="text-[17px]"/> User Profile</Button>
                              </NavLink>
+
+                             <NavLink to="/address"  exact={true} activeClassName="isActive"> 
+                             <Button className="flex items-center gap-3 rounded-none w-full 
+                             !capitalize !text-black !justify-start !text-left">
+                            <LuMapPinPlusInside className="text-[17px]"/>Address</Button>
+                            </NavLink>
                          
                              <NavLink to="/my-list"  exact={true} activeClassName="isActive"> 
 

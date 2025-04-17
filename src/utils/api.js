@@ -8,7 +8,7 @@ export const postData = async (url, formData) => {
         const response = await fetch(`${apiUrl}${url}`, { 
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem("accesstoken")}`, 
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`, 
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData)
@@ -23,7 +23,7 @@ export const postData = async (url, formData) => {
         }
         
 
-        return data; // Return successful response
+        return data; 
 
     } catch (error) {
         console.error("Error in postData:", error);
@@ -87,4 +87,31 @@ export const UpdateData = async (url, updatedData) => {
         throw error;
     }
 };
+
+export const fetchData = async (url) => {
+    try {
+        console.log("Full Request URL:", `${apiUrl}${url}`);
+        const response = await fetch(`${apiUrl}${url}`, { 
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`, 
+            }
+        });
+
+        const data = await response.json(); 
+        console.log("Full API Response:", data);
+
+        if (!response.ok) {
+            console.error("Error in fetchData:", data.message || `HTTP error! Status: ${response.status}`);
+            throw new Error(data.message || `HTTP error! Status: ${response.status}`);
+        }
+
+        return data; 
+
+    } catch (error) {
+        console.error("Error in fetchData:", error);
+        return { success: false, message: error.message || "Request failed" }; 
+    }
+};
+
 

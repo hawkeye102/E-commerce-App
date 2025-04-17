@@ -12,7 +12,8 @@ import { MyContext } from "../../../App";
 import { UpdateData } from "../../../utils/api";
 import CircularProgress from '@mui/material/CircularProgress';
 import ChangePassword from "./changePassword";
-
+import { PhoneInput } from 'react-international-phone';
+import 'react-international-phone/style.css';
 
 
 const Myaccount=()=>{
@@ -22,7 +23,7 @@ const Myaccount=()=>{
     const [isLoading,setisLoading] = useState(false)
     const [showChangePassword, setShowChangePassword] = useState(false);
 
-    
+    const [phone, setPhone] = useState('');
     const [Formfields,setFormfields] =useState({
         name:localStorage.getItem('userName'),
         email:localStorage.getItem('userEmail'),
@@ -129,18 +130,22 @@ const Myaccount=()=>{
             </div>
             
             <div className="w-[50%] !mb-2">
-                <TextField 
-                
-                label="Phone Number" 
-                variant="outlined" 
-                size="small"
-                name="mobile"
-                value={Formfields.mobile}
-                disabled={isLoading===true ? true :false}
-                onChange={onChangeInput}/>
-                </div>
 
-                <br/>
+            <PhoneInput
+  defaultCountry="in"
+  onChange={(phone) => {
+    setPhone(phone);
+    setFormfields((prev) => ({
+      ...prev,
+      mobile: phone,
+    }));
+  }}
+  value={Formfields.mobile}
+  disabled={isLoading === true}
+  className="!w-[68%]"
+/>
+              </div>
+<br/>
                 <div className="flex gap-4">
  <button 
         type="submit" 

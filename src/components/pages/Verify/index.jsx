@@ -74,7 +74,7 @@ const Verify=()=>{
     <OtpBox length={6} onChange={ handleOtpchange}/>
 
     <div className="btn flex justify-center w-full">
-  <button className=" w-full px-6 py-2 mt-3 bg-red-500 text-white font-semibold 
+  <button type ='submit' className=" w-full px-6 py-2 mt-3 bg-red-500 text-white font-semibold 
   rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2
    focus:ring-blue-500 transition-all duration-300">
     Verify OTP

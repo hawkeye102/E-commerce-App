@@ -1,42 +1,42 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+
+
+
+
+.react-international-phone-input {
+  width: 225px;
+  padding: 0.25rem; 
+  border: 1px solid #ccc !important; 
+  transition: all 0.2s ease;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.react-international-phone-input:focus-within {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border: 2px solid black !important;
+  outline: none;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.react-international-phone-input-container{
+  width: 100px !important;
+  border: 1px solid rgba(0, 0,0, 0.1 ) !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.react-international-phone-country-selector-button__button-content{
+  width: 50px !important;
+ 
 }
 
-.card {
-  padding: 2em;
+.react-international-phone-country-selector-button__button-content:focus-within{
+  border: 2px solid black !important;
 }
 
-.read-the-docs {
-  color: #888;
+.MuiTypography-root {
+  height: auto !important;
+  margin-bottom: 10px !important;
+
+}
+
+.MuiInputBase-input {
+  padding: 10px !important;    
+  
 }

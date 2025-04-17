@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import './App.css'
 import Header from "./components/Header";
 import Slider from "./components/SwiperSlider";
 import PopularProducts from "./components/PopularProducts";
@@ -41,6 +42,7 @@ import Myaccount from "./components/pages/MyAccount";
 
 import MyList from "./components/pages/MyList";
 import Orders from "./components/pages/Order";
+import Address from "./components/Myaccountsidebar/Address";
 
 
 
@@ -160,6 +162,9 @@ if(token!==undefined && token!== null && token !==""){
 
            {/* {my-orders page route} */}
            <Route path="/my-orders" element={<Orders/>} />
+
+           {/* {address page route} */}
+           <Route path="/address" element={<Address/>} />
 
 
         </Routes>
