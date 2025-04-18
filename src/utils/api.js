@@ -115,3 +115,31 @@ export const fetchData = async (url) => {
 };
 
 
+export const deleteAddress = async (url) => {
+    try {
+       
+        const response = await fetch(`${apiUrl}${url}`, { 
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem("accessToken")}`, 
+            }
+        });
+
+        const data = await response.json(); 
+        
+
+        if (!response.ok) {
+            console.error("Error in deleteAddress:", data.message || `HTTP error! Status: ${response.status}`);
+            throw new Error(data.message || `HTTP error! Status: ${response.status}`);
+        }
+
+        return data; 
+
+    } catch (error) {
+        console.error("Error in deleteAddress:", error);
+        return { success: false, message: error.message || "Request failed" }; 
+    }
+};
+
+
+

@@ -7,6 +7,8 @@ import Select from '@mui/material/Select';
  import MenuItem from '@mui/material/MenuItem';
  import { postData } from '../../utils/api';
  import { MyContext } from '../../App';
+ import {deleteAddress} from '../../utils/api';
+ 
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -19,6 +21,7 @@ import 'react-international-phone/style.css';
 import { IoBagCheckOutline } from "react-icons/io5";
 import { useEffect } from 'react';
 import { fetchData } from '../../utils/api';
+import { MdDeleteOutline } from "react-icons/md";
 
 
 const Address = () => {
@@ -60,11 +63,9 @@ const Address = () => {
       userId:''
   })
 
-
+ 
   
-  
-
-useEffect(() => {
+ 
   const fetchAddress = async () => {
     const userId = localStorage.getItem("userId");
     if (!userId) return;
@@ -72,22 +73,48 @@ useEffect(() => {
     try {
       const data = await fetchData(`/api/address/get/${userId}`); 
 
-      console.log("Fetched address data:", data);
+      
 
       if (data.success) {
-        setSavedAddress(data.address);
-        setFormfields((prev) => ({
-          ...prev,
-          ...data.address,
-        }));
+        const normalizedAddress = Array.isArray(data.address) ? data.address : [data.address];
+        setSavedAddress(normalizedAddress);
+      }
+      else {
+        console.warn("Expected an array but got:", data.address);
       }
     } catch (err) {
       console.error("Failed to fetch address:", err);
     }
   };
+  useEffect(() => {
+ 
 
-  fetchAddress();
-}, []);
+    fetchAddress();
+  }, []);
+  
+ const handleDelete = async (id) => {
+    try {
+      const confirm = window.confirm("Are you sure you want to delete this address?");
+      if (!confirm) return;
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        context.openAlertBox("error", "User ID not found. Please login again.");
+        return;
+      }
+      const result = await deleteAddress(`/api/address/${id}`);
+      if (result.success) {
+        context.openAlertBox("success", "Address deleted successfully");
+        fetchAddress(); 
+      } else {
+        context.openAlertBox("error", result.message || "Failed to delete address");
+      }
+    } catch (err) {
+      console.error(err);
+      context.openAlertBox("error", err.message || "Something went wrong");
+    }
+  };
+  
+
 
   
   
@@ -105,7 +132,6 @@ useEffect(() => {
      })
      
  }
- console.log("Access token from localStorage:", localStorage.getItem("accessToken"));
 
 
      const handleSubmit = (e) => {
@@ -159,9 +185,21 @@ useEffect(() => {
 
                    if (res?.success) {
                        context.openAlertBox("success", "Address updated successfully!");
-                       localStorage.setItem('userMobile', Formfields.mobile);
-                       setSavedAddress(Formfields);
+                       
+                       
                        console.log('fields values',Formfields)
+                       fetchAddress();
+
+                       setFormfields({
+                        address_line:'',
+                        city:'',
+                        mobile:'',
+                        state:'',
+                        pincode:'',
+                        country:'',
+                        status:'',
+                        userId:''
+                       })
                        
                      
                    } else {
@@ -191,24 +229,33 @@ useEffect(() => {
 
 <div className="col2 w-[50%]">
 <div className="card bg-white p-5 shadow-md rounded-md">
-    <div classname="flex items-center pb-0">
+    <div className="flex items-center pb-0">
         <h2>Address</h2>
     
     </div>
    
 
-    <div className="max-w-md mx-auto p-4">
+    <div className="max-w-md mx-auto p-2">
       
       <div className=" flex items-center justify-center border border-gray-300 bg-gray-100  py-3 rounded-lg font-semibold mb-4 
-      cursor-pointer hover:bg-gray-500 gap-2" onClick={handleClickOpen}>
+      cursor-pointer w-full hover:bg-gray-500 gap-2" onClick={handleClickOpen}>
         <IoAddOutline className='text-[23px]' /><h2 className='text-center'>Add Address</h2>
       </div>
 
-      {savedAddress && (
-  <div className="border p-3 rounded-md bg-blue-100 text-sm text-black">
-    <strong>Address:</strong> {savedAddress.address_line}, {savedAddress.city}, {savedAddress.state} - {savedAddress.pincode}, {savedAddress.country}
+      <div className="space-y-4">
+      {savedAddress?.length>0 && savedAddress.map((addr,index)=>(
+         <div key={index} className="border flex items-center justify-between p-3 
+         rounded-md bg-blue-100 text-sm text-black gap-2">
+    <strong>Address:</strong> {addr.address_line}, {addr.city}, {addr.state} - {addr.pincode}, {addr.country}
+    <div className="">
+     
+    <MdDeleteOutline 
+    className="!text-[22px] !text-black hover:!scale-115  cursor-pointer 
+    transform transition duration-200" onClick={() => handleDelete(addr._id)}/>
+    </div>
   </div>
-)}
+  ))}
+  </div>
 
       
     </div>
