@@ -44,6 +44,8 @@ import MyList from "./components/pages/MyList";
 import Orders from "./components/pages/Order";
 import Address from "./components/Myaccountsidebar/Address";
 
+import { fetchData } from "./utils/api";
+
 
 
 
@@ -71,6 +73,7 @@ if(token!==undefined && token!== null && token !==""){
 
 
 },[isLogin])
+
 
 
 

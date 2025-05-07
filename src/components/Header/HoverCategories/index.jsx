@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
+import {fetchData} from "../../../utils/api";
 
-const categories = [
-  { name: "Fashion", subcategories: ["Men", "Women", "Kids"] },
-  { name: "Electronics", subcategories: ["Mobiles", "Laptops", "SmartWatch","Cameras","Accessories",] },
-  { name: "Bags", subcategories: ["Handbags", "Backpacks", "Wallets"] },
-  { name: "Beauty" },
-  { name: "Wellness"},
-  { name: "Jewellery" },
-  { name: "Footwear" },
-  { name: "Grocery" }
-];
+
 
 const HoverCategories = () => {
   const [openCategory, setOpenCategory] = useState(null);
+  const [catData,setCatData]  =useState([])
+  useEffect(()=>{
+    fetchData('/api/category').then((res)=>{
+      console.log(res)
 
+      if (res?.success === true) {
+        setCatData(res.rootCategories);
+      }
+    })
+  },[])
+
+  
   // Function to toggle subcategories on click
   const handleToggle = (category) => {
     setOpenCategory(openCategory === category ? null : category);
@@ -22,37 +25,34 @@ const HoverCategories = () => {
 
   return (
     <nav className="flex gap-6 relative">
-      {/* Home Link */}
       <Link to="/" className="text-gray-700 hover:text-red-500 font-semibold">
         Home
       </Link>
 
-      {categories.map((category) => (
+      {catData.map((category) => (
         <div
-          key={category.name}
+          key={category._id}
           className="relative group"
-          onMouseEnter={() => category.subcategories && setOpenCategory(category.name)}
+          onMouseEnter={() => category.children && setOpenCategory(category.name)}
           onMouseLeave={() => setOpenCategory(null)}
         >
-          {/* Main Category Link */}
           <Link
-            to={`/listingproducts/${category.name.toLowerCase()}`} // ✅ Linked to listingproducts page
+            to={`/listingproducts/${category.name.toLowerCase()}`}
             onClick={() => handleToggle(category.name)}
             className="text-gray-700 hover:text-red-500 font-semibold focus:text-blue-700 transition-all duration-200"
           >
             {category.name}
           </Link>
 
-          {/* Subcategories Dropdown */}
-          {category.subcategories && openCategory === category.name && (
+          {category.children?.length > 0 && openCategory === category.name && (
             <div className="absolute left-0 top-full bg-white shadow-lg p-2 rounded-md w-40 z-50">
-              {category.subcategories.map((sub) => (
+              {category.children.map((sub) => (
                 <Link
-                  key={sub}
-                  to={`/listingproducts/${category.name.toLowerCase()}/${sub.toLowerCase()}`} // ✅ Subcategory links
+                  key={sub._id}
+                  to={`/listingproducts/${category.name.toLowerCase()}/${sub.name.toLowerCase()}`}
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-200"
                 >
-                  {sub}
+                  {sub.name}
                 </Link>
               ))}
             </div>
