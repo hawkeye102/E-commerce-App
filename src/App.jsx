@@ -56,6 +56,8 @@ export default function App() {
   const [fullWidth, setFullWidth] = React.useState(true);
   const [isLogin,setIsLogin] =useState(false)
   const apiUrl=import.meta.env.VITE_API_URL;
+  const [selectedProductId, setSelectedProductId] = useState(null);
+
 
   const [openCartPanel, setopenCartPanel] = useState(false);
 
@@ -75,6 +77,25 @@ if(token!==undefined && token!== null && token !==""){
 },[isLogin])
 
 
+const [product, setProduct] = useState(null);
+
+useEffect(() => {
+  if (!selectedProductId) return;
+
+  // Replace this URL with your actual API route
+  fetch(`${apiUrl}/api/product/${selectedProductId}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        setProduct(data.product);
+      } else {
+        setProduct(null);
+      }
+    })
+    .catch(() => {
+      setProduct(null);
+    });
+}, [selectedProductId]);
 
 
   const handleClickOpenProductDetailsModal= () => {
@@ -104,6 +125,8 @@ if(token!==undefined && token!== null && token !==""){
     openAlertBox,
     isLogin,
     setIsLogin,
+    selectedProductId,
+    setSelectedProductId
     
   }
   // State to track the selected category
@@ -174,8 +197,8 @@ if(token!==undefined && token!== null && token !==""){
         <Footer />
         <MediaFooter />
       </div>
-      </MyContext.Provider>
-    </Router>
+      
+    
     <Toaster />
 
 <Dialog
@@ -190,22 +213,40 @@ className="ProductDetailsModal"
 >
 
 <DialogContent>
-  <div className="flex items-start w-full ProductDetailsModalContainer !relative">
-  <Button className="!w-[40px] !h-[40px] !min-w-[40px] !rounded-full !text-black 
-  !absolute top-[15px] right-[15px]" onClick={handleCloseProductDetailsModal}><IoMdClose/></Button>
-    <div className=" w-[40%]  ">
-       <ProductZoom/>
+  {!product ? (
+    <p className="p-4">Loading product details...</p>
+  ) : (
+    <div className="flex items-start w-full ProductDetailsModalContainer !relative">
+      <Button
+        className="!w-[40px] !h-[40px] !min-w-[40px] !rounded-full !text-black 
+        !absolute top-[15px] right-[15px]"
+        onClick={handleCloseProductDetailsModal}
+      >
+        <IoMdClose />
+      </Button>
+      <div className="w-[40%]">
+       <ProductZoom images={
+  Array.isArray(product?.images)
+    ? product.images.map(img => img.url || img)  // handle string or object
+    : product?.images
+      ? [product.images] // if it's just a string
+      : []
+} />
+
+      </div>
+      <div className="w-[60%] !pt-0 flex items-start">
+        <ProductDetailComponent product={product} />
+      </div>
     </div>
-    <div className=" w-[60%] !pt-0 flex items-start">
-    <ProductDetailComponent/>
-    </div>
-  </div>
+  )}
 </DialogContent>
+
 
 </Dialog>
 
 
-
+</MyContext.Provider>
+</Router>
 </>
   );
 }

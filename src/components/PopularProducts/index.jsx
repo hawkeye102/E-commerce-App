@@ -1,34 +1,39 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Tabs, Tab } from "@mui/material";
 import "./style.css"; // Import CSS
+import { fetchData } from "../../utils/api";
 
-const categories = [
-  "FASHION",
-  "ELECTRONICS",
-  "BAGS",
-  "FOOTWEAR",
-  "GROCERIES",
-  "BEAUTYPRODUCTS",
-  "JEWELS",
-];
+
+
 
 const PopularProducts = ({ onCategoryChange }) => {
   const [selectedTab, setSelectedTab] = useState(0);
+  const [categories, setCategories] = useState([]); // Initially empty array
+
+  useEffect(() => {
+    fetchData("/api/category").then((res) => {
+      if (res?.success && res.rootCategories?.length > 0) {
+        const catNames = res.rootCategories.map((cat) => cat.name.toUpperCase());
+        setCategories(catNames);
+
+        // Notify parent of default selected category
+        onCategoryChange(catNames[0]);
+      }
+    });
+  }, []);
 
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
-    onCategoryChange(categories[newValue]); // Notify App.jsx about the selected category
+    onCategoryChange(categories[newValue]);
   };
 
   return (
     <div className="popular-products">
-      {/* Left Section */}
       <div className="left-section">
         <h2>Popular Products</h2>
         <p>Do not miss the current offers until the end of March.</p>
       </div>
 
-      {/* Right Section: Scrollable Tabs */}
       <div className="right-section">
         <Tabs
           value={selectedTab}

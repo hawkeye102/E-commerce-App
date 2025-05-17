@@ -113,8 +113,8 @@
 /* Discounted Price */
 .discounted-price {
   color: #ff5722;
-  font-weight: bold;
-  font-size: 18px;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 /* Add-to-Cart Button */
@@ -188,3 +188,4 @@
 .product-actions button:hover .expand-icon {
   color: white;
 }
+
