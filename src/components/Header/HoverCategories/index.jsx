@@ -24,7 +24,7 @@ const HoverCategories = () => {
   };
 
   return (
-    <nav className="flex gap-6 relative">
+    <nav className="flex gap-8 relative ">
       <Link to="/" className="text-gray-700 hover:text-red-500 font-semibold">
         Home
       </Link>

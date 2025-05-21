@@ -80,8 +80,9 @@ console.log(res)
     });
   }
   return (
-    <div>
-    <header className="w-full border-b border-gray-200 text-sm">
+    <>
+   
+    <header  className="w-full border-b border-gray-200 text-sm bg-white">
       {/* Top Strip */}
       <div className="flex justify-between items-center px-6 py-2 bg-gray-100 text-gray-600">
         {/* Promo Message */}
@@ -120,7 +121,8 @@ console.log(res)
         {/* Search Bar (Centered) */}
         <div className="flex-1 flex justify-center ml-40">
           <SearchBar />
-        </div>
+          </div>
+       
 
  {/* using icon fom materialise ui  */}
        
@@ -256,12 +258,14 @@ anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             </Tooltip>
           </div>
        
-      </nav>
+      </nav> 
+      </header>
       <CategoryNav/>
       
-    </header>
+   
     
     
-    </div>
+    
+    </>
   );
 }

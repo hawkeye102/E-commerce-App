@@ -7,23 +7,20 @@ import "./style.css";
 
 
 const CategoryNav = () => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <div className="flex items-center justify-between px-6 py-2 border-b shadow-sm">
-      {/* Left Section: Menu and Category Dropdown */}
-      <ShopbyCategories/>
-      
-      <HoverCategories/>
+    <div className="sticky top-0 z-50 bg-white border-b shadow-sm">
+      <div className="flex items-center justify-between px-6 py-2">
+        {/* Left: ShopbyCategories */}
+        <ShopbyCategories />
 
+        {/* Center: HoverCategories */}
+        <HoverCategories />
 
-      {/* Right Section: Free Delivery */}
-      <div className="flex items-center gap-2">
-        <Rocket size={20} className="text-gray-700" />
-        <span className="text-gray-700 font-medium">Free International Delivery</span>
+        
       </div>
     </div>
   );
 };
+
 
 export default CategoryNav;
