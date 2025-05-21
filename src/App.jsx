@@ -159,6 +159,7 @@ useEffect(() => {
 
           {/* Product Listing Route */}
           <Route path="/products" element={<ProductListing />} />
+           <Route path="/listingproducts" element={<ProductListing />} />
           <Route path="/listingproducts/:category" element={<ProductListing />} />
           <Route path="/listingproducts/:category/:subcategory" element={<ProductListing />} />
           <Route path="/ProductDetails/:id" element={<ProductDetails/>} />
