@@ -76,6 +76,8 @@ useEffect(() => {
     })
   );
 
+  
+
   return (
     <div className="w-full">
       <h2 className="text-2xl font-semibold capitalize p-5">
@@ -232,53 +234,71 @@ useEffect(() => {
                   : "flex flex-col gap-5"
               }`}
             >
-              {filteredProducts.map((product) => (
-                <div
-                  key={product._id}
-                  className={`border rounded-lg p-4 shadow relative group bg-white ${
-                    viewType === "list" ? "flex gap-4" : ""
-                  }`}
-                >
-                  <div className="relative overflow-hidden rounded-lg w-full md:w-auto">
-                    <img
-                      src={product.images?.[0]}
-                      alt={product.name}
-                      className="w-full h-48 object-contain transform group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute top-4 right-4 flex flex-col gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <button className="bg-white p-2 rounded-full shadow hover:bg-red-500 hover:text-white transition-colors">
-                        <Heart className="w-4 h-4" />
-                      </button>
-                      <button
-                        className="bg-white p-2 rounded-full shadow hover:bg-blue-500 hover:text-white transition-colors"
-                        onClick={() =>
-                          context.setopenProductDetailsModal(true)
-                        }
-                      >
-                        <Expand className="w-4 h-4" />
-                      </button>
-                      <button className="bg-white p-2 rounded-full shadow hover:bg-red-500 hover:text-white transition-colors">
-                        <ShoppingCart className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="mt-3 font-medium">{product.name}</h3>
-                    <p className="text-red-500 font-semibold text-lg mt-2">
-                      ₹{product.price.toLocaleString()}
-                    </p>
-                    <p className="text-yellow-400">
-                      {"★".repeat(product.rating)}
-                    </p>
-                    <a
-                      href="#"
-                      className="text-red-500 underline hover:text-red-700 mt-2 inline-block"
-                    >
-                      Shop Now
-                    </a>
-                  </div>
-                </div>
-              ))}
+             {filteredProducts.map((product) => {
+  const discount =
+    product.oldPrice && product.price
+      ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
+      : 0;
+
+  return (
+    <div
+      key={product._id}
+      className={`border rounded-lg p-4 shadow relative group bg-white ${
+        viewType === "list" ? "flex gap-4" : ""
+      }`}
+    >
+      <div className="relative overflow-hidden rounded-lg w-full md:w-auto">
+        {discount > 0 && (
+          <div className="absolute top-2 left-2 z-50 bg-red-500 text-white text-xs px-2 py-1 rounded-full shadow">
+            {discount}%
+          </div>
+        )}
+
+        <img
+          src={product.images?.[0]}
+          alt={product.name}
+          className="w-full h-48 object-contain transform group-hover:scale-105 transition-transform duration-300"
+        />
+        <div className="absolute top-4 right-4 flex flex-col gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <button className="bg-white p-2 rounded-full shadow hover:bg-red-500 hover:text-white transition-colors">
+            <Heart className="w-4 h-4" />
+          </button>
+          <button
+            className="bg-white p-2 rounded-full shadow hover:bg-blue-500 hover:text-white transition-colors"
+            onClick={() => context.setopenProductDetailsModal(true)}
+          >
+            <Expand className="w-4 h-4" />
+          </button>
+          <button className="bg-white p-2 rounded-full shadow hover:bg-red-500 hover:text-white transition-colors">
+            <ShoppingCart className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
+      <div>
+        {product.brand && (
+    <p className=" mt-1 text-sm text-gray-700 opacity-50">{product.brand}</p>
+  )}
+        <h3 className="mt-1 font-medium">{product.name}</h3>
+        <div className="mt-2 flex items-center gap-3">
+          <p className="text-red-500 font-semibold text-lg">
+            ₹{product.price.toLocaleString()}
+          </p>
+          {product.oldPrice && (
+            <p className="line-through text-gray-400">
+              ₹{product.oldPrice.toLocaleString()}
+            </p>
+          )}
+        </div>
+        <p className="text-yellow-400">{"★".repeat(product.rating)}</p>
+        <button className=" w-full mt-3 px-4 py-2 border border-red-500 text-red-500 rounded hover:bg-red-500 hover:text-white flex items-center gap-2 transition-colors">
+          <ShoppingCart className="w-4 h-4" />
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  );
+})}
+
             </div>
           )}
         </div>
