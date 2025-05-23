@@ -10,41 +10,35 @@ import { MyContext } from "../../App";
 
 
 
-   const ProductDetailComponent = () => {
-  const [product, setProduct] = useState(null);
+ const ProductDetailComponent = ({  product, setActiveTab, scrollToReviews, reviewCount }) => {
   const [productActionIndex, setProductActionIndex] = useState(null);
-  const { selectedProductId } = useContext(MyContext);
-  
-
-  useEffect(() => {
-    if (!selectedProductId) return;
-
-    fetchData(`/api/product/${selectedProductId}`).then((res) => {
-      if (res.success) {
-        setProduct(res.product); // assuming API returns product key
-      }
-    });
-  }, [selectedProductId]);
 
   if (!product) return <p className="p-4">Loading product details...</p>;
 
   return (
-    <div className="p-4">
+    <div className="p-2">
       <h1 className="text-[20px] font-[600]">{product.name}</h1>
 
       <div className="flex items-center gap-3 mt-2">
-        <span className="text-gray-600">Brand: 
-          <span className="font-bold text-black pl-1">{product.brand}</span>
+        <span className="text-gray-600">
+          Brand: <span className="font-bold text-black pl-1">{product.brand}</span>
         </span>
         <Rating name="size-small" value={product.rating} size="small" readOnly />
-        <span className="text-[15px] font-[600] cursor-pointer">Review(6)</span>
+      <span
+  className="text-[15px] font-[600] cursor-pointer text-blue-500 hover:underline"
+ onClick={scrollToReviews}
+>
+  Review({reviewCount || 0})
+</span>
+
+
       </div>
 
       <div className="flex items-center gap-3 mt-2">
         <span className="old-price text-gray-500 line-through text-[15px]">₹{product.oldPrice}</span>
         <span className="new-price text-[15px] font-[500] text-red-600">₹{product.price}</span>
-        <span className="text-[15px]">Available in stock: 
-          <span className="text-emerald-400 font-bold pl-1">{product.countInstock} items</span>
+        <span className="text-[15px]">
+          Available in stock: <span className="text-emerald-400 font-bold pl-1">{product.countInstock} items</span>
         </span>
       </div>
 
@@ -54,7 +48,7 @@ import { MyContext } from "../../App";
         <span className="text-[16px] pr-2">Size :</span>
         <div className="flex items-center gap-1">
           {["S", "M", "L", "XL"].map((size, idx) => (
-            <Button
+            <button
               key={size}
               onClick={() => setProductActionIndex(idx)}
               className={`!min-w-[40px] !border-2 !border-gray-300 h-[30px] ${
@@ -62,7 +56,7 @@ import { MyContext } from "../../App";
               }`}
             >
               {size}
-            </Button>
+            </button>
           ))}
         </div>
       </div>

@@ -57,13 +57,35 @@ export default function App() {
   const [isLogin,setIsLogin] =useState(false)
   const apiUrl=import.meta.env.VITE_API_URL;
   const [selectedProductId, setSelectedProductId] = useState(null);
-
+  const [userData, setUserData] = useState(null);
 
   const [openCartPanel, setopenCartPanel] = useState(false);
 
 const toggleCartPanel = (newOpen) => () => {
   setopenCartPanel(newOpen);
 };
+
+
+
+
+useEffect(() => {
+  
+  fetchData('/api/users/profile').then((res) => {
+  if (res.success) {
+    const user = res.user;
+    setUserData({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      mobile: user.mobile,
+      avatar: user.avatar,
+    });
+    setIsLogin(true);
+  }
+});
+}, []);
+
+
 
 useEffect(()=>{
 const token = localStorage.getItem('accessToken');
@@ -82,7 +104,7 @@ const [product, setProduct] = useState(null);
 useEffect(() => {
   if (!selectedProductId) return;
 
-  // Replace this URL with your actual API route
+  
   fetch(`${apiUrl}/api/product/${selectedProductId}`)
     .then((res) => res.json())
     .then((data) => {
@@ -117,6 +139,8 @@ useEffect(() => {
   }
 
   const values={
+    selectedProductId,
+    setSelectedProductId,
     setopenProductDetailsModal,
     handleClickOpenProductDetailsModal,
     setopenCartPanel,
@@ -125,8 +149,9 @@ useEffect(() => {
     openAlertBox,
     isLogin,
     setIsLogin,
-    selectedProductId,
-    setSelectedProductId
+    userData,
+    setUserData
+    
     
   }
   // State to track the selected category

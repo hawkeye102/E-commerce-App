@@ -257,6 +257,7 @@ useEffect(() => {
         <img
           src={product.images?.[0]}
           alt={product.name}
+          onClick={() => navigate(`/ProductDetails/${product._id}`)}
           className="w-full h-48 object-contain transform group-hover:scale-105 transition-transform duration-300"
         />
         <div className="absolute top-4 right-4 flex flex-col gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

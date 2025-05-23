@@ -59,9 +59,10 @@ const Login=()=>{
     
                 console.log(res)
     
+                
                 if (res?.success) { 
 
-                    localStorage.setItem("userId", res?._id); 
+                    localStorage.setItem("userId",res?._id); 
                     
                     // Show success alert
                     context.openAlertBox("success", "login successful!");
@@ -80,7 +81,8 @@ const Login=()=>{
       console.log("Stored Name:", localStorage.getItem("userName"));
       console.log("Stored Email:", localStorage.getItem("userEmail"));
       console.log("Stored AccessToken:", localStorage.getItem("accessToken"));
-      console.log("Stored Id:", localStorage.getItem(" res?._id"))
+      console.log("Stored Id:", localStorage.getItem("userId")); 
+
     
                     setFormfields({ email: "", password: "" });
 
