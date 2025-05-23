@@ -22,6 +22,7 @@ const ProductDetails = () => {
   const [ActiveTab, setActiveTab] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [relatedproducts,setrelatedProducts] = useState([]);
   const { id } = useParams();
 const [reviewCount, setReviewCount] = useState(0);
 const reviewSectionRef = useRef(null);
@@ -45,6 +46,18 @@ const reviewSectionRef = useRef(null);
           })
           .catch(() => setReviewCount(0));
       }
+
+      if (matchedProduct) {
+  const related = res.rootProducts.filter(
+  (p) =>
+    p._id !== matchedProduct._id &&
+    p.category === matchedProduct.category
+);
+
+  
+  setrelatedProducts(related);
+}
+
     }
     setTimeout(() => setLoading(false), 700);
   });
@@ -136,7 +149,7 @@ const reviewSectionRef = useRef(null);
 
           <div className="container mt-5 px-6">
             <h2 className="text-[20px] font-[600] mb-2">Related Products</h2>
-            <RelatedProducts />
+            <RelatedProducts products={relatedproducts}/>
           </div>
         </div>
       </section>
