@@ -44,7 +44,7 @@ import MyList from "./components/pages/MyList";
 import Orders from "./components/pages/Order";
 import Address from "./components/Myaccountsidebar/Address";
 
-import { fetchData, postData } from "./utils/api";
+import { fetchData, postData,UpdateData } from "./utils/api";
 
 
 
@@ -147,6 +147,7 @@ fetch(`${apiUrl}/api/product/${selectedProductId}`)
     image: product.images[0],
     rating: product.rating,
     price: product.price,
+    oldPrice:product.oldPrice,
     quantity: quantity,
     SubTotal: product.price * quantity,
     productId: product._id,
@@ -162,7 +163,7 @@ fetch(`${apiUrl}/api/product/${selectedProductId}`)
         const newCartItem = res?.cartItem;
         openAlertBox("success", "Item added to cart!");
 
-        // ✅ Update cartdata state with new item
+        // Update cartdata state with new item
         SetCartdata((prevCart) => [...prevCart, newCartItem]);
       } else {
         openAlertBox("error", res?.message || "Failed to add item to cart.");
@@ -188,6 +189,25 @@ useEffect(() => {
     .catch(() => SetCartdata([]));
 }, [userData?.id]); // <- Re-run whenever userData becomes available
 
+const updateCartQuantity = async (cartItemId, quantity) => {
+  try {
+    const res = await UpdateData(`/api/cart/${cartItemId}`, { quantity });
+    if (res?.success) {
+      SetCartdata((prev) =>
+        prev.map((item) =>
+          item._id === cartItemId ? { ...item, quantity } : item
+        )
+      );
+      openAlertBox("success", "Cart quantity updated.");
+    } else {
+      openAlertBox("error", res.message || "Update failed.");
+    }
+  } catch (err) {
+    console.error("Cart update failed:", err);
+    openAlertBox("error", "Something went wrong.");
+  }
+};
+
 
   const values={
     selectedProductId,
@@ -204,7 +224,8 @@ useEffect(() => {
     setUserData,
      addTocart,
      cartdata,
-     SetCartdata
+     SetCartdata,
+     updateCartQuantity
     
     
   }

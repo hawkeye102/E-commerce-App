@@ -51,12 +51,9 @@ const ProductSlider = ({ selectedCategory }) => {
   }, [context.cartdata]);
 
   const handleAddToCart = (product) => {
+    if (quantities[product._id]) return; // Already in cart
     const newQty = 1;
     context.addTocart(product, context?.userData?.id, newQty);
-    setQuantities((prev) => ({
-      ...prev,
-      [product._id]: { quantity: newQty },
-    }));
   };
 
   const increaseQty = (product) => {
@@ -64,65 +61,51 @@ const ProductSlider = ({ selectedCategory }) => {
     const currentQty = itemData?.quantity || 0;
     const newQty = currentQty + 1;
 
-    context.addTocart(product, context?.userData?.id, newQty);
-    setQuantities((prev) => ({
-      ...prev,
-      [product._id]: {
-        ...prev[product._id],
-        quantity: newQty,
-      },
-    }));
+    if (itemData?.cartItemId) {
+      context.updateCartQuantity(itemData.cartItemId, newQty);
+    } else {
+      context.addTocart(product, context?.userData?.id, newQty);
+    }
   };
 
- const decreaseQty = async (product) => {
-  const itemData = quantities[product._id];
-  if (!itemData) return;
+  const decreaseQty = async (product) => {
+    const itemData = quantities[product._id];
+    if (!itemData) return;
 
-  const { quantity, cartItemId } = itemData;
-  const newQty = quantity - 1;
+    const { quantity, cartItemId } = itemData;
+    const newQty = quantity - 1;
 
-  if (newQty === 0) {
-    // Remove item if quantity is 0
-    deleteAddress(`/api/cart/${cartItemId}/${context?.userData?.id}`).then((res) => {
-      if (res?.success) {
-        context.openAlertBox("success", "Item removed from cart.");
-        context.SetCartdata((prev) =>
-          prev.filter((item) => item.productId !== product._id)
-        );
-        setQuantities((prev) => {
-          const updated = { ...prev };
-          delete updated[product._id];
-          return updated;
-        });
-      } else {
-        context.openAlertBox("error", "Failed to remove item.");
+    if (newQty === 0) {
+      deleteAddress(`/api/cart/${cartItemId}/${context?.userData?.id}`).then((res) => {
+        if (res?.success) {
+          context.openAlertBox("success", "Item removed from cart.");
+          context.SetCartdata((prev) =>
+            prev.filter((item) => item.productId !== product._id)
+          );
+          setQuantities((prev) => {
+            const updated = { ...prev };
+            delete updated[product._id];
+            return updated;
+          });
+        } else {
+          context.openAlertBox("error", "Failed to remove item.");
+        }
+      });
+    } else {
+      try {
+        const data = await UpdateData(`/api/cart/${cartItemId}`, { quantity: newQty });
+
+        if (data?.success) {
+          context.updateCartQuantity(cartItemId, newQty); // keep cartdata synced
+        } else {
+          context.openAlertBox("error", data.message || "Failed to update cart.");
+        }
+      } catch (error) {
+        console.error("Error updating cart:", error);
+        context.openAlertBox("error", "Something went wrong.");
       }
-    });
-  } else {
-    try {
-      const data = await UpdateData(`/api/cart/${cartItemId}`, { quantity: newQty });
-
-      if (data?.success) {
-        setQuantities((prev) => ({
-          ...prev,
-          [product._id]: {
-            ...prev[product._id],
-            quantity: newQty,
-          },
-        }));
-        context.openAlertBox("success", "Cart quantity updated.");
-      } else {
-        context.openAlertBox("error", data.message || "Failed to update cart.");
-      }
-    } catch (error) {
-      console.error("Error updating cart:", error);
-      context.openAlertBox("error", "Something went wrong.");
     }
-  }
-};
-
-
-
+  };
 
   const renderStars = (rating) => {
     const stars = [];
@@ -175,12 +158,8 @@ const ProductSlider = ({ selectedCategory }) => {
                 className="product-img"
               />
               <div className="product-actions">
-                <button>
-                  <Scale size={20} />
-                </button>
-                <button>
-                  <Heart size={20} />
-                </button>
+                <button><Scale size={20} /></button>
+                <button><Heart size={20} /></button>
                 <button
                   onClick={() => {
                     context.setSelectedProductId(product._id);
@@ -194,9 +173,7 @@ const ProductSlider = ({ selectedCategory }) => {
 
             <div className="text-left w-full px-2">
               <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
-              <p className="text-lg font-medium text-black mb-1">
-                {product.name}
-              </p>
+              <p className="text-lg font-medium text-black mb-1">{product.name}</p>
               <p className="text-sm mt-1">
                 <span className="line-through text-gray-400 mr-2">
                   ₹{product.oldPrice}
@@ -242,7 +219,6 @@ const ProductSlider = ({ selectedCategory }) => {
     </div>
   );
 };
-
 
 
 
