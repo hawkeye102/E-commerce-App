@@ -44,7 +44,7 @@ import MyList from "./components/pages/MyList";
 import Orders from "./components/pages/Order";
 import Address from "./components/Myaccountsidebar/Address";
 
-import { fetchData } from "./utils/api";
+import { fetchData, postData } from "./utils/api";
 
 
 
@@ -59,6 +59,7 @@ export default function App() {
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [userData, setUserData] = useState(null);
 
+  const [cartdata,SetCartdata]=useState([])
   const [openCartPanel, setopenCartPanel] = useState(false);
 
 const toggleCartPanel = (newOpen) => () => {
@@ -87,25 +88,22 @@ useEffect(() => {
 
 
 
-useEffect(()=>{
-const token = localStorage.getItem('accessToken');
-if(token!==undefined && token!== null && token !==""){
-  setIsLogin(true)
-}else{
-  setIsLogin(false)
-}
+useEffect(() => {
+  const token = localStorage.getItem('accessToken');
+  if (token) {
+    setIsLogin(true);
+  } else {
+    setIsLogin(false);
+  }
+}, []);
 
-
-},[isLogin])
 
 
 const [product, setProduct] = useState(null);
 
 useEffect(() => {
   if (!selectedProductId) return;
-
-  
-  fetch(`${apiUrl}/api/product/${selectedProductId}`)
+fetch(`${apiUrl}/api/product/${selectedProductId}`)
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
@@ -138,6 +136,59 @@ useEffect(() => {
 
   }
 
+ const addTocart = (product, userId, quantity) => {
+  if (!userId) {
+    openAlertBox("error", "User ID missing! Please login.");
+    return;
+  }
+
+  const payload = {
+    productTitle: product.name,
+    image: product.images[0],
+    rating: product.rating,
+    price: product.price,
+    quantity: quantity,
+    SubTotal: product.price * quantity,
+    productId: product._id,
+    countInstock: product.countInstock,
+    userId: userId
+  };
+
+  postData('/api/cart/add', payload)
+    .then((res) => {
+      console.log("Add to cart response:", res);
+
+      if (res?.success) {
+        const newCartItem = res?.cartItem;
+        openAlertBox("success", "Item added to cart!");
+
+        // ✅ Update cartdata state with new item
+        SetCartdata((prevCart) => [...prevCart, newCartItem]);
+      } else {
+        openAlertBox("error", res?.message || "Failed to add item to cart.");
+      }
+    })
+    .catch((err) => {
+      console.error("Add to cart failed:", err);
+      openAlertBox("error", "Something went wrong! Try again.");
+    });
+};
+
+useEffect(() => {
+  if (!userData?.id) return;
+
+  fetchData('/api/cart/get')
+    .then((res) => {
+      if (res.success) {
+        SetCartdata(res.cartItems || []);
+      } else {
+        SetCartdata([]);
+      }
+    })
+    .catch(() => SetCartdata([]));
+}, [userData?.id]); // <- Re-run whenever userData becomes available
+
+
   const values={
     selectedProductId,
     setSelectedProductId,
@@ -150,7 +201,10 @@ useEffect(() => {
     isLogin,
     setIsLogin,
     userData,
-    setUserData
+    setUserData,
+     addTocart,
+     cartdata,
+     SetCartdata
     
     
   }

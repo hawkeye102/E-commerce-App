@@ -72,8 +72,8 @@ console.log(res)
  localStorage.removeItem("userName");
  localStorage.removeItem("userMobile");
  localStorage.removeItem("useravatar");
-
- context.setIsLogin(false);
+context.setUserData(null);
+context.setIsLogin(false);
  // Refresh the page or trigger a state change in Navbar
  history('/'); // OR use context/state management
  
@@ -253,7 +253,8 @@ anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
               <button className="relative p-2 hover:bg-gray-100 rounded-full transition" 
               onClick={()=>context. setopenCartPanel(true)}>
                 <ShoppingCart fontSize="medium" className="text-gray-700 hover:text-green-500"/>
-                <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">3</span>
+                <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
+                  {context?.cartdata?.length}</span>
               </button>
             </Tooltip>
           </div>

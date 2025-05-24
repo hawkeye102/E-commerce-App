@@ -74,6 +74,14 @@ const Login=()=>{
             localStorage.setItem("userMobile", res?.mobile);  
             localStorage.setItem("userAvatar", res?.avatar);
                     
+            context.setUserData({
+  _id: res._id,
+  name: res.name,
+  email: res.email,
+  mobile: res.mobile,
+  avatar: res.avatar,
+});
+
 
             // Verify stored values
             console.log("Stored mobile:", localStorage.getItem("usermobile"));
