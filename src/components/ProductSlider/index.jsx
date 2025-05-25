@@ -56,6 +56,16 @@ const ProductSlider = ({ selectedCategory }) => {
     context.addTocart(product, context?.userData?.id, newQty);
   };
 
+  const handleAddToWishlist = (product) => {
+  const userId = context?.userData?.id;
+  if (!userId) {
+    context.openAlertBox("error", "Please log in to add to wishlist.");
+    return;
+  }
+
+  context.addToWishlist(product, userId);
+};
+
   const increaseQty = (product) => {
     const itemData = quantities[product._id];
     const currentQty = itemData?.quantity || 0;
@@ -159,7 +169,10 @@ const ProductSlider = ({ selectedCategory }) => {
               />
               <div className="product-actions">
                 <button><Scale size={20} /></button>
-                <button><Heart size={20} /></button>
+               <button onClick={() => handleAddToWishlist(product)}>
+                <Heart size={20} className="hover:text-red-500 transition" />
+              </button>
+
                 <button
                   onClick={() => {
                     context.setSelectedProductId(product._id);

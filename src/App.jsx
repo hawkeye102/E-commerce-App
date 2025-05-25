@@ -61,6 +61,8 @@ export default function App() {
 
   const [cartdata,SetCartdata]=useState([])
   const [openCartPanel, setopenCartPanel] = useState(false);
+  const [wishlistItems, setWishlistItems] = useState([]);
+
 
 const toggleCartPanel = (newOpen) => () => {
   setopenCartPanel(newOpen);
@@ -142,28 +144,34 @@ fetch(`${apiUrl}/api/product/${selectedProductId}`)
     return;
   }
 
+  // Check if product already in cart
+  const existingItem = cartdata.find((item) => item.productId === product._id);
+  if (existingItem) {
+    // If already in cart, just update quantity
+    updateCartQuantity(existingItem._id, existingItem.quantity + quantity);
+    openAlertBox("info", "Item already in cart. Quantity increased.");
+    return;
+  }
+
+  // Else, create new cart item
   const payload = {
     productTitle: product.name,
     image: product.images[0],
     rating: product.rating,
     price: product.price,
-    oldPrice:product.oldPrice,
-    quantity: quantity,
+    oldPrice: product.oldPrice,
+    quantity,
     SubTotal: product.price * quantity,
     productId: product._id,
     countInstock: product.countInstock,
-    userId: userId
+    userId: userId,
   };
 
-  postData('/api/cart/add', payload)
+  postData("/api/cart/add", payload)
     .then((res) => {
-      console.log("Add to cart response:", res);
-
       if (res?.success) {
         const newCartItem = res?.cartItem;
         openAlertBox("success", "Item added to cart!");
-
-        // Update cartdata state with new item
         SetCartdata((prevCart) => [...prevCart, newCartItem]);
       } else {
         openAlertBox("error", res?.message || "Failed to add item to cart.");
@@ -174,6 +182,7 @@ fetch(`${apiUrl}/api/product/${selectedProductId}`)
       openAlertBox("error", "Something went wrong! Try again.");
     });
 };
+
 
 useEffect(() => {
   if (!userData?.id) return;
@@ -209,6 +218,54 @@ const updateCartQuantity = async (cartItemId, quantity) => {
 };
 
 
+useEffect(() => {
+  if (!userData?.id) return;
+
+  fetchData(`/api/mylist/${userData?.id}`)
+    .then((res) => {
+      if (res.success) {
+        setWishlistItems(res.myList || []);
+      } else {
+        setWishlistItems([]);
+      }
+    })
+    .catch(() => setWishlistItems([]));
+}, [userData?.id]);
+
+
+const addToWishlist = async (product, userId) => {
+  if (!userId) {
+    openAlertBox("error", "User ID missing! Please login.");
+    return;
+  }
+
+  const payload = {
+    userId: userId,
+    productId: product._id,
+    productTitle: product.name,
+    image: product.images?.[0],
+    ratings: product.rating,
+    oldPrice: product.oldPrice,
+    Price: product.price,
+    discount: product.discount,
+    brand: product.brand,
+  };
+
+  try {
+    const res = await postData("/api/mylist/add", payload);
+    if (res.success) {
+      openAlertBox("success", "Added to Wishlist!");
+      setWishlistItems((prev) => [...prev, res.myList]);
+     
+    } else {
+      openAlertBox("error", res.message || "Already in Wishlist!");
+    }
+  } catch (err) {
+    openAlertBox("error", "Something went wrong.");
+    console.error(err);
+  }
+};
+
   const values={
     selectedProductId,
     setSelectedProductId,
@@ -225,7 +282,10 @@ const updateCartQuantity = async (cartItemId, quantity) => {
      addTocart,
      cartdata,
      SetCartdata,
-     updateCartQuantity
+     updateCartQuantity,
+      addToWishlist,
+      wishlistItems, 
+      setWishlistItems
     
     
   }
@@ -235,7 +295,7 @@ const updateCartQuantity = async (cartItemId, quantity) => {
   return (
     <>
     <Router>
-      <MyContext.Provider value={values}>
+      <MyContext.Provider value={values}> 
    <div>
         <Header /> {/* Header remains at the top for all pages */}
         <Routes>

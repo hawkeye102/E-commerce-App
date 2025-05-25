@@ -235,11 +235,13 @@ anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
           {/* Icons Section */}
           <div className="flex items-center gap-4">
             {/* Wishlist Icon */}
+            <Link to='/my-list'>
             <Tooltip title="Wishlist">
               <button className="p-2 hover:bg-gray-100 rounded-full transition">
                 <FavoriteBorder fontSize="medium" className="text-gray-700 hover:text-red-500" />
               </button>
             </Tooltip>
+            </Link>
 
             {/* Compare Icon */}
             <Tooltip title="Compare">
