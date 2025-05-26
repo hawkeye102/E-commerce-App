@@ -110,39 +110,53 @@ const Orders = () => {
                         {expandedRow === order._id && (
                           <tr className="bg-gray-100">
                             <td colSpan="11" className="border border-gray-300 p-4">
-                              <div className="flex items-start gap-6">
-                                <img
-                                  src={order.product_details?.[0]?.image}
-                                  alt="Product"
-                                  className="w-16 h-16 object-cover rounded"
-                                />
-                                <div>
-                                  <p className="font-bold">Order ID: {order._id}</p>
-                                  <p className="text-sm">
-                                    Phone: {order.deliveryAddress?.phone || "N/A"}
-                                  </p>
-                                  <p className="text-sm">
-                                    Address:{" "}
-                                    {order.deliveryAddress
-                                      ? `${order.deliveryAddress.street}, ${order.deliveryAddress.city}, ${order.deliveryAddress.state}`
-                                      : "N/A"}
-                                  </p>
-                                  <p className="text-sm">
-                                    Status:{" "}
-                                    <span
-                                      className={`font-[500] ${
-                                        order.paymentStatus === "Paid"
-                                          ? "text-green-600"
-                                          : order.paymentStatus === "Pending"
-                                          ? "text-yellow-500"
-                                          : "text-red-500"
-                                      }`}
-                                    >
-                                      {order.paymentStatus}
-                                    </span>
-                                  </p>
-                                </div>
-                              </div>
+                             <div>
+  <p className="font-bold mb-2">Order ID: {order._id}</p>
+  <p className="text-sm mb-1">
+    Phone: {order.deliveryAddress?.phone || "N/A"}
+  </p>
+  <p className="text-sm mb-1">
+    Address:{" "}
+    {order.deliveryAddress
+      ? `${order.deliveryAddress.street}, ${order.deliveryAddress.city}, ${order.deliveryAddress.state}`
+      : "N/A"}
+  </p>
+  <p className="text-sm mb-3">
+    Status:{" "}
+    <span
+      className={`font-[500] ${
+        order.paymentStatus === "Paid"
+          ? "text-green-600"
+          : order.paymentStatus === "Pending"
+          ? "text-yellow-500"
+          : "text-red-500"
+      }`}
+    >
+      {order.paymentStatus}
+    </span>
+  </p>
+
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {order.product_details?.map((item, index) => (
+      <div
+        key={index}
+        className="flex items-center gap-4 p-3 border border-gray-300 rounded-md bg-white shadow-sm"
+      >
+        <img
+          src={item.image}
+          alt={item.name}
+          className="w-20 h-20 object-cover rounded"
+        />
+        <div>
+          <p className="font-semibold text-sm">{item.name}</p>
+          <p className="text-sm">Quantity: {item.quantity}</p>
+          <p className="text-sm">Price: ₹{item.price}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
                             </td>
                           </tr>
                         )}
