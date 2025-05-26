@@ -1,176 +1,226 @@
-import React from "react";
+import React, { useContext,useState,useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { FaShoppingCart } from "react-icons/fa";
+import { ShoppingCart } from "lucide-react";
 import "./style.css"; // Import CSS file
-import { Star, StarHalf, Star as StarOutline } from "lucide-react";
 import { Scale, Heart, Expand } from "lucide-react";
+import { MyContext } from "../../App";
+import { fetchData } from "../../utils/api";
+import { deleteAddress,UpdateData } from "../../utils/api";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { FaStarHalfAlt } from "react-icons/fa";
+import { FaMinus, FaPlus } from "react-icons/fa";
 
-const products = [
-  
-  {
-    id: 2,
-    name: "LIVE FASHION Black Women PU Bag",
-    img: "hover/hov9.jpg",
-    hoverImg: "hover/hov9back.jpg",
-    price: "₹1,450.00",
-    oldPrice: "₹1,850.00",
-    discount: "15%",
-     rating:"4.3"
-  },
-  {
-    id: 3,
-    name: "Men Round Toe Lace-Up Sandals",
-    img: "hover/hov5.jpg",
-    hoverImg: "hover/hov5back.jpg",
-    price: "₹450.00",
-    oldPrice: "₹250.00",
-    discount: "8%",
-     rating:"4.3"
-  },
-  {
-    id: 4,
-    name: "FLORES Stylish Fashion Backpack",
-    img: "hover/hov2.jpg",
-    hoverImg: "hover/hov2back.jpg",
-    price: "₹1,400.00",
-    oldPrice: "₹1,550.00",
-    discount: "10%",
-     rating:"4.3"
-  },
-  {
-    id: 5,
-    name: "Apple iPhone 15 256GB Black",
-    img: "hover/hov11.jpg",
-    hoverImg: "hover/hov11back.jpg",
-    price: "₹35,000.00",
-    oldPrice: "₹45,000.00",
-    discount: "10%",
-     rating:"4.3"
-  },
-  {
-    id: 6,
-    name: "ZAALQA Girls Black Handbag",
-    img: "hover/hov10.jpg",
-    hoverImg: "hover/hov10back.jpg",
-    price: "₹100.00",
-    oldPrice: "₹750.00",
-    discount: "10%",
-     rating:"4.3"
-  },
-  {
-    id: 7,
-    name: "ZAALQA Girls Black Handbag",
-    img: "hover/hov12.jpg",
-    hoverImg: "hover/hov12back.jpg",
-    price: "₹100.00",
-    oldPrice: "₹750.00",
-    discount: "10%",
-     rating:"4.3"
-  },
-  {
-    id: 8,
-    name: "ZAALQA Girls Black Handbag",
-    img: "hover/hov8.jpg",
-    hoverImg: "hover/hov8back.jpg",
-    price: "₹100.00",
-    oldPrice: "₹750.00",
-    discount: "10%",
-     rating:"5",
-  },
-  {
-    id: 9,
-    name: "ZAALQA Girls Black Handbag",
-    img: "hover/hov3.jpg",
-    hoverImg: "hover/hov3back.jpg",
-    price: "₹100.00",
-    oldPrice: "₹750.00",
-    discount: "10%",
-    rating:"4.3",
-  },
-];
+
+
 
 const FeaturedProducts = () => {
     // Function to render stars based on rating
-    const renderStars = (rating) => {
-      const stars = [];
-      for (let i = 1; i <= 5; i++) {
-        if (i <= Math.floor(rating)) {
-          stars.push(<Star key={i} className="text-yellow-500 w-4 h-4" />);
-        } else if (i - 0.5 === rating) {
-          stars.push(<StarHalf key={i} className="text-yellow-500 w-4 h-4" />);
-        } else {
-          stars.push(<StarOutline key={i} className="text-gray-300 w-4 h-4" />);
-        }
+const context = useContext(MyContext);
+  const [products, setProducts] = useState([]);
+  const [quantities, setQuantities] = useState({});
+
+  useEffect(() => {
+    fetchData("/api/product/featured-products").then((res) => {
+      if (res?.success && res.featuredProducts?.length > 0) {
+        setProducts(res.featuredProducts);
+      } else {
+        setProducts([]);
       }
-      return stars;
-    };
-  
-    return (
-      <div className="featured-products ">
-        <h2>Featured Products</h2>
-        <Swiper
-          modules={[Navigation]}
-          spaceBetween={20}
-          slidesPerView={6}
-          navigation
-          breakpoints={{
-            320: { slidesPerView: 1 },
-            480: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 6},
-          }}
-        >
-          {products.map((product) => (
-            <SwiperSlide key={product.id}>
-              <div className="product-card">
-                <span className="discount-badge">{product.discount}</span>
-                <div className="product-image-container">
-                  <img
-                    src={product.img}
-                    alt={product.name}
-                    className="product-image default-img"
-                  />
-                  <img
-                    src={product.hoverImg}
-                    alt={product.name}
-                    className="product-image hover-img"
-                  />
-                </div>
-                            {/* Icons (Appear on Hover) */}
-              <div className="product-action1">
-  <button>
-    <Scale size={12} className="scale-icon" />
-  </button>
-  <button>
-    <Heart size={12} className="heart-icon" />
-  </button>
-  <button>
-    <Expand size={12} className="expand-icon" />
-  </button>
+    });
+  }, []);
+
+  useEffect(() => {
+    const qtyMap = {};
+    context.cartdata?.forEach((item) => {
+      qtyMap[item.productId] = {
+        quantity: item.quantity,
+        cartItemId: item._id,
+      };
+    });
+    setQuantities(qtyMap);
+  }, [context.cartdata]);
+
+  const handleAddToCart = (product) => {
+    if (quantities[product._id]) return;
+    const newQty = 1;
+    context.addTocart(product, context?.userData?.id, newQty);
+  };
+
+  const increaseQty = (product) => {
+    const itemData = quantities[product._id];
+    const currentQty = itemData?.quantity || 0;
+    const newQty = currentQty + 1;
+
+    if (itemData?.cartItemId) {
+      context.updateCartQuantity(itemData.cartItemId, newQty);
+    } else {
+      context.addTocart(product, context?.userData?.id, newQty);
+    }
+  };
+
+  const decreaseQty = async (product) => {
+    const itemData = quantities[product._id];
+    if (!itemData) return;
+
+    const { quantity, cartItemId } = itemData;
+    const newQty = quantity - 1;
+
+    if (newQty === 0) {
+      deleteAddress(`/api/cart/${cartItemId}/${context?.userData?.id}`).then((res) => {
+        if (res?.success) {
+          context.openAlertBox("success", "Item removed from cart.");
+          context.SetCartdata((prev) =>
+            prev.filter((item) => item.productId !== product._id)
+          );
+          setQuantities((prev) => {
+            const updated = { ...prev };
+            delete updated[product._id];
+            return updated;
+          });
+        } else {
+          context.openAlertBox("error", "Failed to remove item.");
+        }
+      });
+    } else {
+      try {
+        const data = await UpdateData(`/api/cart/${cartItemId}`, { quantity: newQty });
+        if (data?.success) {
+          context.updateCartQuantity(cartItemId, newQty);
+        } else {
+          context.openAlertBox("error", data.message || "Failed to update cart.");
+        }
+      } catch (error) {
+        console.error("Error updating cart:", error);
+        context.openAlertBox("error", "Something went wrong.");
+      }
+    }
+  };
+
+  const handleAddToWishlist = (product) => {
+    const userId = context?.userData?.id;
+    if (!userId) {
+      context.openAlertBox("error", "Please log in to add to wishlist.");
+      return;
+    }
+    context.addToWishlist(product, userId);
+  };
+
+  const renderStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(<AiFillStar key={`full-${i}`} color="gold" />);
+    }
+
+    if (hasHalfStar) {
+      stars.push(<FaStarHalfAlt key="half" color="gold" />);
+    }
+
+    while (stars.length < 5) {
+      stars.push(<AiOutlineStar key={`empty-${stars.length}`} color="gold" />);
+    }
+
+    return stars;
+  };
+
+  return (
+    <div className="latest-products w-screen">
+      <h2 className="text-xl font-semibold mt-4">Featured Products</h2>
+      <Swiper
+        modules={[Navigation]}
+        spaceBetween={20}
+        slidesPerView={6}
+        navigation
+        breakpoints={{
+          320: { slidesPerView: 1 },
+          480: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 6 },
+        }}
+      >
+        {products.map((product) => (
+          <SwiperSlide key={product._id}>
+            <div className="product-card relative">
+              <span className="absolute top-2 z-50 left-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                {Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)}%
+              </span>
+
+             <div className="relative w-full h-[170px] overflow-hidden group">
+  <img
+    src={product.images?.[0]}
+    alt={product.name}
+    className="w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+  />
+  <img
+    src={product.images?.[1] || product.images?.[0]}
+    alt={product.name}
+    className="absolute top-0 left-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+  />
 </div>
-                <div className="product-info">
-                  <p className="product-name">{product.name}</p>
-                  <p className="product-prices">
-                    <span className="old-price">{product.oldPrice}</span>
-                    <span className="new-price">{product.price}</span>
-                  </p>
-                  {/* Star Ratings */}
-                  <div className="flex items-center mt-1">{renderStars(product.rating)}</div>
-  
-                  <button className="add-to-cart">
-                    <FaShoppingCart className="cart-icon" />
-                    ADD TO CART
-                  </button>
-                </div>
+
+
+              <div className="product-action absolute top-2 right-2 flex flex-col gap-2">
+                <button><Scale size={16} /></button>
+                <button onClick={() => handleAddToWishlist(product)}>
+                  <Heart size={16} className="hover:text-red-500" />
+                </button>
+                <button onClick={() => {
+                  context.setSelectedProductId(product._id);
+                  context.setopenProductDetailsModal(true);
+                }}>
+                  <Expand size={16} />
+                </button>
               </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    );
+
+              <div className="product-info px-2 py-2 text-left">
+                <p className="text-xs text-gray-500">{product.brand}</p>
+                <p className="text-sm font-medium text-black">{product.name}</p>
+                <p className="text-sm mt-1">
+                  <span className="line-through text-gray-400 mr-2">₹{product.oldPrice}</span>
+                  <span className="font-semibold text-black">₹{product.price}</span>
+                </p>
+                <div className="flex gap-1 mt-1">{renderStars(product.rating || 0)}</div>
+              </div>
+
+              <div className="mt-2 px-2 pb-2">
+                {quantities[product._id]?.quantity ? (
+                  <div className="flex items-stretch rounded-full border overflow-hidden w-[130px] h-[25px] shadow-sm bg-white">
+                    <button
+                      onClick={() => decreaseQty(product)}
+                      className="bg-green-500 w-[28px] flex items-center justify-center"
+                    >
+                      <FaMinus className="text-gray-700 text-sm" />
+                    </button>
+                    <div className="w-[74px] text-center flex items-center justify-center font-semibold text-sm text-black">
+                      {quantities[product._id]?.quantity || 0}
+                    </div>
+                    <button
+                      onClick={() => increaseQty(product)}
+                      className="bg-red-500 hover:bg-red-600 w-[28px] flex items-center justify-center rounded-r-full"
+                    >
+                      <FaPlus className="text-white text-sm" />
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => handleAddToCart(product)}
+                    className="add-to-cart w-full py-2 mt-2 border border-black rounded-full flex items-center justify-center gap-2"
+                  >
+                    <ShoppingCart size={18} /> ADD TO CART
+                  </button>
+                )}
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
   };
   
   export default FeaturedProducts;
