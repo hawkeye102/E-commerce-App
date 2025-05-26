@@ -63,6 +63,9 @@ export default function App() {
   const [openCartPanel, setopenCartPanel] = useState(false);
   const [wishlistItems, setWishlistItems] = useState([]);
 
+  const clearCart = () => {
+    SetCartdata([]); // ✅ Empty the cart in UI
+  };
 
 const toggleCartPanel = (newOpen) => () => {
   setopenCartPanel(newOpen);
@@ -285,7 +288,8 @@ const addToWishlist = async (product, userId) => {
      updateCartQuantity,
       addToWishlist,
       wishlistItems, 
-      setWishlistItems
+      setWishlistItems,
+      clearCart
     
     
   }

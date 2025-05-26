@@ -3,8 +3,11 @@ import TextField from '@mui/material/TextField';
 import { Button,Card, CardContent } from "@mui/material";
 import { IoBagCheckOutline } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import { fetchData, postData } from "../../../utils/api";
+import { deleteAddress, fetchData, postData } from "../../../utils/api";
 import { MyContext } from "../../../App";
+import { FormControl, RadioGroup, FormControlLabel, Radio } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+
 
 const Checkout = () => {
   const context = useContext(MyContext);
@@ -13,10 +16,104 @@ const Checkout = () => {
   const [hasAlerted, setHasAlerted] = useState(false);
    const [totalAmount, setTotalAmount] = useState(0);
 
+   const navigate = useNavigate();
 
-    const handlePlaceOrder = () => {
-    toast.success("Order placed successfully!");
-  };
+   const [paymentMethod, setPaymentMethod] = useState("COD");
+   const [subtotalAmt, setSubtotalAmt] = useState(0);
+const [shippingAmt, setShippingAmt] = useState(0);
+const [taxAmt, setTaxAmt] = useState(0);
+
+
+
+
+
+
+ useEffect(() => {
+  const subtotal = context.cartdata.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+  const shipping = subtotal > 1000 ? 0 : 50;
+  const tax = subtotal * 0.18;
+  const total = subtotal + shipping + tax;
+
+  setSubtotalAmt(subtotal);
+  setShippingAmt(shipping);
+  setTaxAmt(tax);
+  setTotalAmount(total);
+}, [context.cartdata]);
+
+const paymentId = paymentMethod === "COD" ? `COD-${Date.now()}` : realPaymentId;
+
+const orderId = `ORD-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+
+    const handlePlaceOrder = async () => {
+      console.log("cartItems", context?.cartdata);
+
+     const subtotalAmt = context?.cartdata.reduce(
+  (total, item) => total + item.quantity * item.price,
+  0
+);
+
+
+const productDetails = context.cartdata.map(item => ({
+  productId: item.productId,
+  name: item.productTitle,
+  price: item.price,
+  quantity: item.quantity,
+  image: item.image,
+}));
+
+
+  if (!addressData || !paymentMethod || context?.cartdata.length === 0) {
+    context.openAlertBox("Please complete all required fields.");
+    return;
+  }
+
+  
+  try {
+   const payload = {
+  userId: context?.userData.id,
+  cartItems: context?.cartdata,
+   deliveryAddress: addressData,
+  subtotalAmt,
+  shippingAmt,
+  taxAmt,
+  totalAmt: totalAmount,
+  productId:productDetails.map(item => item.productId),
+  paymentId,
+  paymentMethod,
+  product_details:productDetails,
+  orderId,
+  paymentStatus: paymentMethod === "COD" ? "Pending" : "Paid", // example logic
+};
+
+    const res = await postData("/api/orders/create", payload);
+
+    if (res.success) {
+    if (paymentMethod === "COD") {
+      // 1. Clear backend cart
+      deleteAddress(`/api/cart/clear/${context?.userData?.id}`);
+
+      context.clearCart(); 
+     
+      // 3. Show success alert & redirect
+      context.openAlertBox("success", "Order placed successfully!");
+      navigate("/my-orders");
+
+    } else if (paymentMethod === "Online") {
+      // Handle Razorpay payment
+      handleRazorpay(res.order);
+    }
+  } else {
+    context.openAlertBox("error", "Failed to place order.");
+  }
+  } catch (err) {
+    console.error(err);
+    context.openAlertBox('error',"Error placing order.");
+  }
+};
+
 
 
   const totalPrice = context?.cartdata.reduce(
@@ -259,50 +356,71 @@ const Checkout = () => {
 
         {/* RIGHT COLUMN */}
        
-      {/* Cart Summary */}
-       <Card className="shadow-lg">
-          <CardContent className="p-6 space-y-4">
-            <h3 className="text-xl font-semibold text-gray-700">Order Summary</h3>
-            {context?.cartdata.length > 0 ? (
-              <div className="space-y-4 max-h-[400px] overflow-y-auto">
-                {context?.cartdata.map((item) => (
-                  <div
-                    key={item._id}
-                    className="flex items-center justify-between gap-4 bg-white rounded-md p-3 shadow-sm"
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.productTitle}
-                      className="w-16 h-16 object-cover rounded-md border"
-                    />
-                    <div className="flex-1">
-                      <h4 className="font-medium text-gray-800">{item.productTitle}</h4>
-                      <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
-                    </div>
-                    <p className="text-md font-semibold text-green-600">
-                      ₹{item.price * item.quantity}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-gray-500">Your cart is empty.</p>
-            )}
-            <div className="border-t pt-4">
-              <div className="flex justify-between text-lg font-semibold text-gray-800">
-                <span>Total:</span>
-                <span>₹{totalAmount}</span>
-              </div>
-              <Button
-                onClick={handlePlaceOrder}
-                className="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium"
-              >
-                Place Order
-              </Button>
+    <Card className="shadow-lg">
+  <CardContent className="p-6 space-y-4">
+    <h3 className="text-xl font-semibold text-gray-700">Order Summary</h3>
+
+    {context?.cartdata.length > 0 ? (
+      <div className="space-y-4 max-h-[400px] overflow-y-auto">
+        {context?.cartdata.map((item) => (
+          <div
+            key={item._id}
+            className="flex items-center justify-between gap-4 bg-white rounded-md p-3 shadow-sm"
+          >
+            <img
+              src={item.image}
+              alt={item.productTitle}
+              className="w-16 h-16 object-cover rounded-md border"
+            />
+            <div className="flex-1">
+              <h4 className="font-medium text-gray-800">{item.productTitle}</h4>
+              <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
             </div>
-          </CardContent>
-        </Card>
-  
+            <p className="text-md font-semibold text-green-600">
+              ₹{item.price * item.quantity}
+            </p>
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p className="text-gray-500">Your cart is empty.</p>
+    )}
+
+    {/* Total Amount */}
+    <div className="border-t pt-4 space-y-4">
+      <div className="flex justify-between text-lg font-semibold text-gray-800">
+        <span>Total:</span>
+        <span>₹{totalAmount}</span>
+      </div>
+
+      {/*Select Payment Method */}
+      <div>
+        <h2 className="text-md font-medium text-gray-700">Select Payment Method</h2>
+        <div className="mt-2 flex gap-5">
+          <FormControl>
+            <RadioGroup
+              row
+              value={paymentMethod}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            >
+              <FormControlLabel value="COD" control={<Radio />} label="Cash on Delivery" />
+              <FormControlLabel value="Online" control={<Radio />} label="Razorpay" />
+            </RadioGroup>
+          </FormControl>
+        </div>
+      </div>
+
+      {/* Place Order Button */}
+      <Button
+        onClick={handlePlaceOrder}
+        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium"
+      >
+        Place Order
+      </Button>
+    </div>
+  </CardContent>
+</Card>
+
 
       </div>
     </section>
