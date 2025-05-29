@@ -64,7 +64,7 @@ export default function App() {
   const [wishlistItems, setWishlistItems] = useState([]);
 
   const clearCart = () => {
-    SetCartdata([]); // ✅ Empty the cart in UI
+    SetCartdata([]); // Empty the cart in UI
   };
 
 const toggleCartPanel = (newOpen) => () => {
@@ -141,7 +141,7 @@ fetch(`${apiUrl}/api/product/${selectedProductId}`)
 
   }
 
- const addTocart = (product, userId, quantity) => {
+ const addTocart = (product, userId,quantity) => {
   if (!userId) {
     openAlertBox("error", "User ID missing! Please login.");
     return;
