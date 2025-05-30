@@ -18,10 +18,15 @@ import { MyContext } from "../../App";
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
-    if (!itemData) {
-      context.addTocart(product, context?.userData?.id, quantity);
-    }
-  };
+  if (!itemData) {
+    context.addTocart(product, context?.userData?.id, quantity);
+  } else {
+    const newQty = currentQty + quantity;
+    context.updateCartQuantity(itemData.cartItemId, newQty);
+  }
+  setQuantity(1); // Reset local selector
+};
+
 
   const handleIncreaseQty = () => {
     const newQty = currentQty + 1;
